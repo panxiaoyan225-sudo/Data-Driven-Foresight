@@ -78,7 +78,7 @@ lifecycle_data.csv  ──►  SQL (DuckDB)  ──►  enrollment_modeling_data
 
 ### Database sources
 
-#### Internal: student lifecycle snapshot (`lifecycle_data2.csv`)
+#### Internal: student lifecycle snapshot (`lifecycle_data.csv`)
 
 This file contains one row per student per term in their academic journey. Key fields include:
 
