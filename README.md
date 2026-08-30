@@ -2,7 +2,7 @@
 
 **From historical evidence to what may happen next.**
 
-This repository presents a case study in data-driven foresight: using longitudinal data, statistical modeling, validation, and predictive analysis to move from historical evidence toward forward-looking intelligence.
+This repository presents a data-driven foresight: using longitudinal data, statistical modeling, validation, and predictive analysis to move from historical evidence toward forward-looking intelligence.
 
 The case study focuses on **enrollment continuation forecasting**, but the underlying approach is broader. The same reasoning can be applied wherever organizations need to understand what happened, identify changing patterns, and anticipate what may happen next.
 

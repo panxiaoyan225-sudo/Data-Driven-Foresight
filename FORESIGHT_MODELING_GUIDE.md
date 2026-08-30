@@ -362,7 +362,7 @@ Once each student pathway has a probability $P_i$, we assign a **risk tier** for
 
 A common dashboard mistake is averaging feature contributions across **all** students — including low-risk students who dilute the signal. Our recommended approach:
 
-1. Score every EMPLID + COH_QUALIF pathway → $P_i$  
+1. Score every studemt + level of study pathway → $P_i$  
 2. Filter to **flagged at-risk students only** (Moderate + High Risk)  
 3. Average SHAP values (or absolute coefficients × standardized feature values) **within that filtered group**  
 4. Display the top drivers — e.g., "Among at-risk Economics entrants, high unemployment year and part-time load are the dominant factors"
@@ -372,7 +372,7 @@ This answers the question planners actually ask: *"What is driving risk among th
 Per-student scores for the held-out test period are available in `outputs/student_predictions_test.csv`:
 
 ```
-StudentID | Studylevel | coh_year | program | y_true | y_prob | y_pred
+StudentID | Studylevel | cohort_year | program | y_true | y_prob | y_pred
 ```
 
 ---
@@ -462,8 +462,8 @@ StudentID | Studylevel | coh_year | program | y_true | y_prob | y_pred
 ### How to run the pipeline
 
 ```powershell
-cd c:\Python\Enrollment_revised
-python enrollment_prediction.py
+cd c:\Python\File_revised
+python prediction.py
 ```
 
 ### Key output files
