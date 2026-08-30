@@ -106,7 +106,7 @@ Macro-level conditions that may influence enrolment patterns are joined by **coh
 
 #### Historical enrolment trends (lagged, leakage-safe)
 
-For each qualification (`coh_qualif`) and program, the SQL computes **prior-year** headcount and Year 2 continuation rates — never using the current year's outcomes to predict itself. These become features like `hist_prior_y2_rate` and `hist_roll3_y2_rate`.
+For each qualification and program, the SQL computes **prior-year** headcount and Year 2 continuation rates — never using the current year's outcomes to predict itself. These become features like `hist_prior_y2_rate` and `hist_roll3_y2_rate`.
 
 ### Data preprocessing made simple
 
@@ -133,7 +133,7 @@ $$
 
 Numeric features scaled in our pipeline include:
 
-`Studylevel`, `coh_year`, `coh_month`, study-duration fields, international/coop/load flags, historical trend fields, and all five external indicators.
+Cohort/Program inforamtion, , study-duration fields, international/coop/load flags, historical trend fields, and all five external indicators.
 
 #### Step 3: One-hot encoding (`OneHotEncoder`)
 
@@ -166,7 +166,7 @@ Not every column in the dataset should be used as a model input. Using the wrong
 | **Target label** | `target_year2_continuation` | This is what we are trying to predict — using it as input would be cheating |
 | **Post-outcome fields** | `max_years_observed`, `ever_graduated`, `lifecycle_row_count` | These are only known *after* the student has progressed — not available at prediction time |
 | **Maturity flags** | `is_mature_cohort` | Used to filter training data, not as a feature |
-| **Descriptive metadata** | `coh_plan`, `coh_prog`, `entering_subject_name`, `reg_subject`, `fisc_year`, `acad_year` | Redundant with encoded features or not used in the current model spec |
+| **Descriptive metadata** | `plan`, `program`, `entering_subject`, `reg_subject`, `acad_year` | Redundant with encoded features or not used in the current model spec |
 
 > **Important:** `coh_year` *is* included as a numeric feature because cohort-era effects (e.g., COVID-19 entry year) matter for prediction. However, it is also the basis for our **temporal train/test splits** — the model never trains on future years to predict past years.
 
