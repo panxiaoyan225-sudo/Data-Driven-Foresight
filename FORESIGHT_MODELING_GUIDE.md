@@ -1,5 +1,5 @@
 
-# Case Study: Enrollment Continuation Forecasting
+#  FORESIGHT MODELING GUIDE
 
  
 **Audience:** Institutional stakeholders, academic planners, and analysts  
@@ -71,7 +71,7 @@ Our pipeline combines **internal student records** with **external environmental
 2. **Python model training** (`enrollment_prediction.py`) — encoding, scaling, and prediction
 
 ```
-lifecycle_data2.csv  ──►  SQL (DuckDB)  ──►  enrollment_modeling_dataset.csv
+lifecycle_data.csv  ──►  SQL (DuckDB)  ──►  enrollment_modeling_dataset.csv
                                     │
                                     └──►  enrollment_prediction.py  ──►  outputs/
 ```
@@ -463,7 +463,7 @@ StudentID | Studylevel | cohort_year | program | y_true | y_prob | y_pred
 
 ```powershell
 cd c:\Python\File_revised
-python prediction.py
+python enrollment_prediction.py
 ```
 
 ### Key output files
