@@ -471,7 +471,7 @@ python prediction.py
 | File | Contents |
 |---|---|
 | `outputs/enrollment_modeling_dataset.csv` | Full feature matrix for mature cohorts |
-| `outputs/student_predictions_test.csv` | Per-student probabilities (EMPLID + COH_QUALIF) |
+| `outputs/student_predictions_test.csv` | Per-student probabilities  |
 | `outputs/model_comparison.csv` | Walk-forward and test metrics for all models |
 | `outputs/walk_forward_validation_folds.csv` | Year-by-year fold performance |
 | `outputs/model_interpretation.csv` | Top feature coefficients / importances |
@@ -497,4 +497,4 @@ python prediction.py
 
 ---
 
-*Document version: 1.0 — aligned with `Enrollment_revised` pipeline (prediction grain: EMPLID + COH_QUALIF; validation: Historical Walk-Forward)*
+*Document version: 1.0 — aligned with `File_revised` pipeline (prediction grain: studentID + StudyLevel; validation: Historical Walk-Forward)*
