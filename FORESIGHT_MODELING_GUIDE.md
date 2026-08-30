@@ -26,8 +26,8 @@ Think of the model as a **weather forecast for enrolment**: it does not tell us 
 
 Each prediction is made for a unique combination of:
 
-- **EMPLID** — the student's institutional ID  
-- **COH_QUALIF** — the qualification pathway they entered (e.g., Bachelor's code `13`, a different program code `45`)
+- **the_student's_institutional_ID**
+- **StudyLevel** — the qualification pathway they entered (e.g., Bachelor, Master)
 
 A single student can appear more than once if they pursued multiple qualification pathways over time. Each pathway is modeled independently because the risk profile of "first-year Economics" may differ from "first-year Engineering transfer."
 
@@ -82,13 +82,13 @@ lifecycle_data2.csv  ──►  SQL (DuckDB)  ──►  enrollment_modeling_dat
 
 This file contains one row per student per term in their academic journey. Key fields include:
 
-- **Identity:** `EMPLID`, `COH_QUALIF` (qualification code)  
-- **Cohort timing:** `COH_YEAR`, `COH_MONTH`, `SEASON`  
-- **Program structure:** `PROGRAM`, `FACULTY`, `ACAD_UNIT`, coop flags, load (full/part-time)  
+- **Identity**
+- **Cohort timing**
+- **Program structure:** 
 - **Demographics:** residency (`Intern_domest`), sex, immigration group  
-- **Outcome tracking:** `Years`, `RetentionYrs` (e.g., `COHORTE`, `YR02_Cont`), `STATUS`
+- **Outcome tracking:** 
 
-The SQL layer collapses this raw history into **one row per EMPLID + COH_QUALIF**, using only information available at or near entry (the "COHORTE" snapshot — the student's first recorded term on that qualification).
+The SQL layer collapses this raw history into **one row per student ID + level of study**, using only information available at or near entry (the "COHORTE" snapshot — the student's first recorded term on that qualification).
 
 #### External: environmental indicators (`external_indicators` table)
 
@@ -133,7 +133,7 @@ $$
 
 Numeric features scaled in our pipeline include:
 
-`coh_qualif`, `coh_year`, `coh_month`, study-duration fields, international/coop/load flags, historical trend fields, and all five external indicators.
+`Studylevel`, `coh_year`, `coh_month`, study-duration fields, international/coop/load flags, historical trend fields, and all five external indicators.
 
 #### Step 3: One-hot encoding (`OneHotEncoder`)
 
@@ -154,7 +154,7 @@ Text categories cannot be fed directly into math equations. **One-hot encoding**
 
 Only one faculty column is `1` for any given student; all others are `0`. This prevents the model from incorrectly treating faculty names as ordered numbers (Engineering ≠ "2 × Arts").
 
-Categorical features encoded in our pipeline include: `season`, `acad_career`, `direct_entry_type`, application categories, immigration group, residency, sex, subject, program language, load, coop, program, faculty, academic unit, program code, academic load, and coop indicator.
+Categorical features encoded in our pipeline include: application categories, immigration group, residency, sex, subject, program language, load, coop, program, faculty, academic unit, program code, academic load, and coop indicator.
 
 ### Columns excluded from model training
 
@@ -162,7 +162,7 @@ Not every column in the dataset should be used as a model input. Using the wrong
 
 | Column type | Examples | Why excluded |
 |---|---|---|
-| **Student identifiers** | `EMPLID` | IDs carry no predictive pattern; including them would memorize individuals |
+| **Student identifiers** | IDs carry no predictive pattern; including them would memorize individuals |
 | **Target label** | `target_year2_continuation` | This is what we are trying to predict — using it as input would be cheating |
 | **Post-outcome fields** | `max_years_observed`, `ever_graduated`, `lifecycle_row_count` | These are only known *after* the student has progressed — not available at prediction time |
 | **Maturity flags** | `is_mature_cohort` | Used to filter training data, not as a feature |
@@ -183,7 +183,7 @@ Not every column in the dataset should be used as a model input. Using the wrong
 
 Our SQL enforces this by:
 
-1. Taking the **COHORTE** (entry) snapshot per EMPLID + COH_QUALIF  
+1. Taking the **COHORTE** (entry) snapshot per StudentID + StudyLevel 
 2. Computing historical trend features with **lagged** windows (prior years only)  
 3. Training only on **mature cohorts** where Year 2 outcomes have actually been observed
 
@@ -372,7 +372,7 @@ This answers the question planners actually ask: *"What is driving risk among th
 Per-student scores for the held-out test period are available in `outputs/student_predictions_test.csv`:
 
 ```
-EMPLID | coh_qualif | coh_year | program | y_true | y_prob | y_pred
+StudentID | Studylevel | coh_year | program | y_true | y_prob | y_pred
 ```
 
 ---
@@ -393,7 +393,7 @@ EMPLID | coh_qualif | coh_year | program | y_true | y_prob | y_pred
               ▼                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │              SQL FEATURE ENGINEERING  (01_feature_engineering.sql)          │
-│  • One row per EMPLID + COH_QUALIF                                          │
+│  • One row per StudentID + studylevel                                          │
 │  • Entry-time (COHORTE) snapshot only                                       │
 │  • Lagged historical trends (no leakage)                                    │
 │  • Join external indicators by coh_year                                       │
@@ -485,8 +485,8 @@ python enrollment_prediction.py
 
 | Term | Definition |
 |---|---|
-| **EMPLID** | Unique student identifier in the institutional system |
-| **COH_QUALIF** | Qualification pathway code (degree, certificate, etc.) |
+| **StudentID** | Unique student identifier in the institutional system |
+| **StudyLevel** | Qualification pathway code (degree, certificate, etc.) |
 | **COHORTE** | The entry-term snapshot row in lifecycle data |
 | **Walk-forward validation** | Train on the past, test on the next future period, repeat |
 | **ROC-AUC** | Ranking quality score from 0.5 (random) to 1.0 (perfect) |
