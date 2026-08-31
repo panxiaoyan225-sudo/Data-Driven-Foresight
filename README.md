@@ -103,12 +103,6 @@ The guide focuses on the reasoning behind the prediction:
 The goal is to make the analytical reasoning visible without exposing confidential or restricted institutional data.
 
 
-## Data and Privacy
-
-No student-level data, confidential institutional records, or restricted source data are included in this public repository.
-
-The repository contains methodology documentation and selected analytical outputs intended to demonstrate the modeling and foresight approach.
-
 ## Broader Application
 
 Although the case study is based on enrollment continuation, the underlying approach is not limited to higher education.
@@ -214,3 +208,9 @@ Although the case study is based on enrollment continuation, the underlying appr
 │  • Walk-forward stability charts for model governance                       │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
+
+## Data and Privacy
+
+No confidential records, or restricted source data are included in this public repository.
+
+The repository contains methodology documentation and selected analytical outputs intended to demonstrate the modeling and foresight approach.
