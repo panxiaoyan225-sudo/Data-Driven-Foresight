@@ -1,8 +1,9 @@
 # Data-Driven Foresight
 
+**Once trusted data has been established, prediction becomes the next layer of intelligence.**
 **From historical evidence to what may happen next.** 
 
-This repository presents a data-driven foresight: using longitudinal data, statistical modeling, validation, and predictive analysis to move from historical evidence toward forward-looking intelligence.
+This repository presents data-driven foresight: using longitudinal data, statistical modeling, validation, and predictive analysis to move from historical evidence toward forward-looking intelligence.
 
  [📊 View Foresight Modeling Guide](https://github.com/panxiaoyan225-sudo/Data-Driven-Foresight/blob/main/FORESIGHT_MODELING_GUIDE.md)
 
