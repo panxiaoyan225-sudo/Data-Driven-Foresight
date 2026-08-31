@@ -37,7 +37,7 @@ A single student can appear more than once if they pursued multiple qualificatio
 
 ### From individual probabilities to program headcount
 
-The model outputs a probability $P_i$ for each student pathway $i$. To estimate how many students will continue, we **sum the probabilities** rather than simply counting yes/no predictions:
+The model outputs a probability $P_i$ for each student pathway $i$. To estimate how many students will continue, I **sum the probabilities** rather than simply counting yes/no predictions:
 
 $$
 \text{Expected Year 2 continuers} = \sum_{i=1}^{N} P_i
@@ -92,7 +92,7 @@ The SQL layer collapses this raw history into **one row per student ID + level o
 
 #### External: environmental indicators (`external_indicators` table)
 
-Macro-level conditions that may influence enrolment patterns are joined by **cohort entry year**. In production, these would be sourced from official series such as:
+Macro-level conditions that may influence enrolment patterns are joined by **cohort entry year**:
 
 | Indicator in my model | Real-world source (production target) |
 |---|---|
@@ -101,8 +101,6 @@ Macro-level conditions that may influence enrolment patterns are joined by **coh
 | `intl_student_cap_pressure` | Federal/provincial international student cap announcements |
 | `youth_demographic_index` | StatsCan population / youth cohort projections |
 | `geopolitical_risk_index` | Composite economic / global risk proxy (e.g., ESDC, World Bank) |
-
-> **Note:** In the current `File_revised` prototype, these external series are **placeholder values** embedded in SQL. Before production deployment, they should be replaced with live feeds from StatsCan, IRCC, and ESDC.
 
 #### Historical enrolment trends (lagged, leakage-safe)
 
@@ -127,7 +125,7 @@ $$
 Z = \frac{x - \mu}{\sigma}
 $$
 
-**Why?**  Features like "years in post-secondary" (range 0–5) and "historical headcount" (range 0–500) would otherwise dominate the model simply because their numbers are larger. Z-scoring puts them on equal footing.
+**Why?**    Features like "years in post-secondary" (range 0–5) and "historical headcount" (range 0–500) would otherwise dominate the model simply because their numbers are larger. Z-scoring puts them on equal footing.
 
 **Intuition:** If the average unemployment rate is 6% with little variation, a year at 9% becomes a "high" Z-score — the model learns *relative* unusualness, not raw units.
 
@@ -290,7 +288,7 @@ The model ranked A above B — **correct ordering**. ROC-AUC captures whether th
 
 ### Models compared
 
-I  train four candidate models and select the best balance of accuracy, interpretability, and maintainability:
+I  train 4 candidate models and select the best balance of accuracy, interpretability, and maintainability:
 
 | Model | Type | Strengths | Trade-offs |
 |---|---|---|---|
@@ -360,7 +358,7 @@ Once each student pathway has a probability $P_i$, we assign a **risk tier** for
 
 #### Why driver rankings focus on flagged students
 
-A common dashboard mistake is averaging feature contributions across **all** students — including low-risk students who dilute the signal. Our recommended approach:
+A common dashboard mistake is averaging feature contributions across **all** students — including low-risk students who dilute the signal. My recommended approach:
 
 1. Score every studemt + level of study pathway → $P_i$  
 2. Filter to **flagged at-risk students only** (Moderate + High Risk)  
@@ -498,3 +496,9 @@ python enrollment_prediction.py
 ---
 
 *Document version: 1.0 — aligned with `File_revised` pipeline (prediction grain: studentID + StudyLevel; validation: Historical Walk-Forward)*
+
+## Data and Privacy
+
+No confidential records, or restricted source data are included in this public repository.
+
+The repository contains methodology documentation and selected analytical outputs intended to demonstrate the modeling and foresight approach.
