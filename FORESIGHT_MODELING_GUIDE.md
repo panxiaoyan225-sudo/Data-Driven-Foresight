@@ -195,7 +195,7 @@ Our SQL enforces this by:
 
 In a typical K-fold cross-validation, the dataset is shuffled and split into $K$ random folds. Each fold takes a turn being the "test" set. This works well for static problems (e.g., classifying flower species from measurements).
 
-**Enrolment data is not static — it is temporal.** Student cohorts arrive year by year, policies change, and economic conditions shift. If we randomly shuffle 2015 students into the same training pool as 2023 students, the model can implicitly "peek" at the future:
+**Enrolment data is not static — it is temporal.** Student cohorts arrive year by year, policies change, and economic conditions shift. If I randomly shuffle 2015 students into the same training pool as 2023 students, the model can implicitly "peek" at the future:
 
 - It learns patterns from 2022–2023 while being tested on 2014.  
 - This creates **look-ahead bias** — performance looks artificially high.  
@@ -205,7 +205,7 @@ In a typical K-fold cross-validation, the dataset is shuffled and split into $K$
 
 ### Historical walk-forward validation
 
-Our pipeline (`historical_walk_forward_validate` in `enrollment_prediction.py`) simulates how the model would have performed if deployed year by year.
+My pipeline (`historical_walk_forward_validate` in `enrollment_prediction.py`) simulates how the model would have performed if deployed year by year.
 
 **Rule:** At every step, training data comes from cohort years **strictly before** the test year:
 
@@ -215,7 +215,7 @@ $$
 
 #### Step-by-step walk-through (2010–2023 cohorts)
 
-We require at least **5 cohort years** of training history before the first test fold (`MIN_TRAIN_COHORTS = 5`).
+I require at least **5 cohort years** of training history before the first test fold (`MIN_TRAIN_COHORTS = 5`).
 
 | Fold | Training cohorts | Test cohort | What this simulates |
 |---|---|---|---|
@@ -247,7 +247,7 @@ After walk-forward validation establishes historical stability, we fit the final
 
 Many textbooks recommend splitting data **60% train / 20% validation / 20% test** when rows are exchangeable (i.i.d.). That proportion is a useful **conceptual benchmark** for the three roles above.
 
-**Our enrolment pipeline uses a time-based split instead of a random 60/20/20**, because student cohorts must stay in chronological order. With 14 mature cohort years (2010–2023), the approximate row shares are:
+**My enrolment pipeline uses a time-based split instead of a random 60/20/20**, because student cohorts must stay in chronological order. With 14 mature cohort years (2010–2023), the approximate row shares are:
 
 - **Training:** ~82% (oldest 11 cohort years)  
 - **Validation:** ~7% (1 recent cohort year)  
