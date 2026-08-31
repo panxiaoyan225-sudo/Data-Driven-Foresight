@@ -1,11 +1,26 @@
 # Data-Driven Foresight
 
 **From historical evidence to what may happen next.** 
- [📊 View Foresight Modeling Guide](https://github.com/panxiaoyan225-sudo/Data-Driven-Foresight/blob/main/FORESIGHT_MODELING_GUIDE.md))
 
 This repository presents a data-driven foresight: using longitudinal data, statistical modeling, validation, and predictive analysis to move from historical evidence toward forward-looking intelligence.
 
 The case study focuses on **enrollment continuation forecasting**, but the underlying approach is broader. The same reasoning can be applied wherever organizations need to understand what happened, identify changing patterns, and anticipate what may happen next.
+
+ [📊 View Foresight Modeling Guide](https://github.com/panxiaoyan225-sudo/Data-Driven-Foresight/blob/main/FORESIGHT_MODELING_GUIDE.md)
+
+## Why This Matters
+
+Predictive analytics is not only about producing a forecast.
+
+The more important question is:
+
+> **What can we know about what may happen next, before it becomes visible in the reported numbers?**
+
+A useful foresight system connects:
+
+**historical evidence → patterns → prediction → validation → decision**
+
+The model is one component of that process.
 
 ## The Foresight Approach
 
@@ -87,19 +102,6 @@ The guide focuses on the reasoning behind the prediction:
 
 The goal is to make the analytical reasoning visible without exposing confidential or restricted institutional data.
 
-## Why This Matters
-
-Predictive analytics is not only about producing a forecast.
-
-The more important question is:
-
-> **What can we know about what may happen next, before it becomes visible in the reported numbers?**
-
-A useful foresight system connects:
-
-**historical evidence → patterns → prediction → validation → decision**
-
-The model is one component of that process.
 
 ## Data and Privacy
 
