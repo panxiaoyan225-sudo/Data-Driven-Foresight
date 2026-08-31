@@ -94,7 +94,7 @@ The SQL layer collapses this raw history into **one row per student ID + level o
 
 Macro-level conditions that may influence enrolment patterns are joined by **cohort entry year**. In production, these would be sourced from official series such as:
 
-| Indicator in our model | Real-world source (production target) |
+| Indicator in my model | Real-world source (production target) |
 |---|---|
 | `labour_market_unemployment` | Statistics Canada Labour Force Survey |
 | `immigration_policy_tightness` | IRCC policy / study permit processing trends |
@@ -127,7 +127,7 @@ $$
 Z = \frac{x - \mu}{\sigma}
 $$
 
-**Why?** Features like "years in post-secondary" (range 0–5) and "historical headcount" (range 0–500) would otherwise dominate the model simply because their numbers are larger. Z-scoring puts them on equal footing.
+**Why?**  Features like "years in post-secondary" (range 0–5) and "historical headcount" (range 0–500) would otherwise dominate the model simply because their numbers are larger. Z-scoring puts them on equal footing.
 
 **Intuition:** If the average unemployment rate is 6% with little variation, a year at 9% becomes a "high" Z-score — the model learns *relative* unusualness, not raw units.
 
@@ -166,7 +166,7 @@ Not every column in the dataset should be used as a model input. Using the wrong
 | **Target label** | `target_year2_continuation` | This is what we are trying to predict — using it as input would be cheating |
 | **Post-outcome fields** | `max_years_observed`, `ever_graduated`, `lifecycle_row_count` | These are only known *after* the student has progressed — not available at prediction time |
 | **Maturity flags** | `is_mature_cohort` | Used to filter training data, not as a feature |
-| **Descriptive metadata** | `plan`, `program`, `entering_subject`, `reg_subject`, `acad_year` | Redundant with encoded features or not used in the current model spec |
+| **Descriptive metadata** | `plan name`, `program name`, `entering_subject`, `reg_subject`, `acad_year` | Redundant with encoded features or not used in the current model spec |
 
 > **Important:** `cohort_year` *is* included as a numeric feature because cohort-era effects (e.g., COVID-19 entry year) matter for prediction. However, it is also the basis for our **temporal train/test splits** — the model never trains on future years to predict past years.
 
@@ -237,11 +237,11 @@ Fold-level detail is saved to `outputs/walk_forward_validation_folds.csv`.
 
 After walk-forward validation establishes historical stability, we fit the final candidate models using a **temporal holdout structure**. Think of it like school:
 
-| Set | Role | Analogy | Our pipeline (cohort years) |
+| Set | Role | Analogy | My pipeline (cohort years) |
 |---|---|---|---|
-| **Training** | Learn patterns from the past | Textbook + lectures | 2010 – 2020 (~4,920 pathways) |
-| **Validation** | Tune decisions; practice quiz | Practice quiz before the final | 2021 (~438 pathways) |
-| **Test** | Final unbiased exam — never touched during training | Final exam | 2022 – 2023 (~649 pathways) |
+| **Training** | Learn patterns from the past | Textbook + lectures | 2010 – 2020  |
+| **Validation** | Tune decisions; practice quiz | Practice quiz before the final | 2021 |
+| **Test** | Final unbiased exam — never touched during training | Final exam | 2022 – 2023 |
 
 #### About the "60 / 20 / 20" guideline
 
