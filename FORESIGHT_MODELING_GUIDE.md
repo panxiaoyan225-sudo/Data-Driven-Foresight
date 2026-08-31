@@ -429,7 +429,7 @@ StudentID | Studylevel | cohort_year | program | y_true | y_prob | y_pred
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                    PROBABILITY SCORING                                      │
-│  Each EMPLID + COH_QUALIF  →  P(continue to Year 2)  =  P_i                │
+│  Each StudentID + StudyLevel  →  P(continue to Year 2)  =  P_i                │
 │  Program headcount estimate  →  Σ P_i  (expected continuers)                │
 └─────────────────────────────────┬───────────────────────────────────────────┘
                                   │

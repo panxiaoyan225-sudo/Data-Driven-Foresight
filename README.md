@@ -113,7 +113,7 @@ The repository contains methodology documentation and selected analytical output
 
 Although the case study is based on enrollment continuation, the underlying approach is not limited to higher education.
 
-The same analytical discipline can support questions such as:
+**The same analytical discipline can support questions such as**:
 
 - What may happen to demand?
 - Which risks are emerging?
@@ -122,7 +122,7 @@ The same analytical discipline can support questions such as:
 - What signals appear before a decline becomes visible?
 - What should decision-makers watch next?
 
-The domain changes. The reasoning remains.
+**The domain changes. The reasoning remains.**
 
 ---
 
@@ -130,6 +130,7 @@ The domain changes. The reasoning remains.
 
 *From historical evidence to what may happen next.*
 
+---
 
 **Step-by-Step Prediction Workflow**
 
@@ -150,7 +151,7 @@ The domain changes. The reasoning remains.
 │  • One row per StudentID + studylevel                                          │
 │  • Entry-time (COHORTE) snapshot only                                       │
 │  • Lagged historical trends (no leakage)                                    │
-│  • Join external indicators by coh_year                                       │
+│  • Join external indicators by cohort_year                                       │
 │  • Label: target_year2_continuation                                           │
 └─────────────────────────────────┬───────────────────────────────────────────┘
                                   │
@@ -183,7 +184,7 @@ The domain changes. The reasoning remains.
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                    PROBABILITY SCORING                                      │
-│  Each EMPLID + COH_QUALIF  →  P(continue to Year 2)  =  P_i                │
+│  Each StudentID + StudyLevel  →  P(continue to Year 2)  =  P_i                │
 │  Program headcount estimate  →  Σ P_i  (expected continuers)                │
 └─────────────────────────────────┬───────────────────────────────────────────┘
                                   │
