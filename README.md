@@ -134,6 +134,7 @@ Although the case study is based on enrollment continuation, the underlying appr
 
 **Step-by-Step Prediction Workflow**
 
+
 ### End-to-end ASCII flowchart
 
 ```
@@ -148,16 +149,16 @@ Although the case study is based on enrollment continuation, the underlying appr
               ▼                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │              SQL FEATURE ENGINEERING  (01_feature_engineering.sql)          │
-│  • One row per StudentID + studylevel                                          │
+│  • One row per StudentID + studylevel                                       │
 │  • Entry-time (COHORTE) snapshot only                                       │
 │  • Lagged historical trends (no leakage)                                    │
-│  • Join external indicators by cohort_year                                       │
-│  • Label: target_year2_continuation                                           │
+│  • Join external indicators by cohort year                                  │
+│  • Label: target_year2_continuation                                         │
 └─────────────────────────────────┬───────────────────────────────────────────┘
                                   │
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│              CLEANING & ENCODING  (enrollment_prediction.py)                  │
+│              CLEANING & ENCODING  (enrollment_prediction.py)                │
 │  • Impute missing values                                                    │
 │  • StandardScaler  →  Z-scores for numeric features                         │
 │  • OneHotEncoder   →  0/1 flags for categorical features                    │
@@ -169,7 +170,7 @@ Although the case study is based on enrollment continuation, the underlying appr
 │         HISTORICAL WALK-FORWARD VALIDATION                                  │
 │  Fold 1: Train 2010-2014 → Test 2015                                        │
 │  Fold 2: Train 2010-2015 → Test 2016                                        │
-│  ...                                                                          │
+│  ...                                                                        │
 │  Fold 9: Train 2010-2022 → Test 2023                                        │
 │  → Measure ROC-AUC stability & model drift over time                        │
 └─────────────────────────────────┬───────────────────────────────────────────┘
@@ -177,14 +178,14 @@ Although the case study is based on enrollment continuation, the underlying appr
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │         TEMPORAL TRAIN / VALIDATION / TEST SPLIT                            │
-│  Train: 2010-2020  |  Validation: 2021  |  Test: 2022-2023                 │
+│  Train: 2010-2020  |  Validation: 2021  |  Test: 2022-2023                  │
 │  → Fit Logistic Regression, Random Forest, XGBoost, LightGBM                │
 └─────────────────────────────────┬───────────────────────────────────────────┘
                                   │
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                    PROBABILITY SCORING                                      │
-│  Each StudentID + StudyLevel  →  P(continue to Year 2)  =  P_i                │
+│  Each StudentID + StudyLevel  →  P(continue to Year 2)  =  P_i              │
 │  Program headcount estimate  →  Σ P_i  (expected continuers)                │
 └─────────────────────────────────┬───────────────────────────────────────────┘
                                   │
@@ -208,8 +209,8 @@ Although the case study is based on enrollment continuation, the underlying appr
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │         EXECUTIVE DASHBOARD & INTERVENTIONS                                 │
 │  • Cohort/program demand forecasts (Σ P_i by year × qualif × program)       │
-│  • At-risk student lists for advising outreach                                │
-│  • Top risk drivers for policy conversations                                  │
+│  • At-risk student lists for advising outreach                              │
+│  • Top risk drivers for policy conversations                                │
 │  • Walk-forward stability charts for model governance                       │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
