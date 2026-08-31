@@ -23,11 +23,23 @@ The objective is to estimate the probability of second-year continuation from hi
 
 ## Modeling
 
-Several predictive approaches are evaluated, including:
 
-- Logistic Regression
-- Random Forest
-- XGBoost
+I  train four candidate models and select the best balance of accuracy, interpretability, and maintainability:
+
+| Model | Type | Strengths | Trade-offs |
+|---|---|---|---|
+| **Logistic Regression** | Linear | Transparent coefficients; fast; easy to audit | Assumes additive, linear feature effects |
+| **Random Forest** | Tree ensemble | Captures interactions; robust | Harder to explain; slower to update |
+| **XGBoost** | Gradient-boosted trees | High accuracy on structured data | More complex; needs careful monitoring |
+| **LightGBM** | Gradient-boosted trees | Fast on large datasets | Similar to XGBoost |
+
+### How the final model is chosen
+
+Selection uses a weighted score (`selection_score`):
+
+- **70%** — test-set performance (ROC-AUC, F1, recall, precision)  
+- **15%** — interpretability (Logistic Regression scores highest)  
+- **15%** — operational maintainability (simplicity of deployment and monitoring)
 
 The purpose of comparing models is not to assume that the most complex model is automatically the best model. Model performance must be evaluated against the structure and purpose of the prediction problem.
 
@@ -115,3 +127,86 @@ The domain changes. The reasoning remains.
 **Data-Driven Foresight**
 
 *From historical evidence to what may happen next.*
+
+
+**Step-by-Step Prediction Workflow**
+
+### End-to-end ASCII flowchart
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                        RAW DATA SOURCES                                     │
+│  ┌──────────────────────┐    ┌──────────────────────────────────────────┐   │
+│  │ lifecycle_data       │    │ External indicators (StatsCan / IRCC /   │   │
+│  │ (student snapshots)  │    │ ESDC proxies by cohort year)             │   │
+│  └──────────┬───────────┘    └──────────────────┬───────────────────────┘   │
+└─────────────┼───────────────────────────────────┼───────────────────────────┘
+              │                                   │
+              ▼                                   ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│              SQL FEATURE ENGINEERING  (01_feature_engineering.sql)          │
+│  • One row per StudentID + studylevel                                          │
+│  • Entry-time (COHORTE) snapshot only                                       │
+│  • Lagged historical trends (no leakage)                                    │
+│  • Join external indicators by coh_year                                       │
+│  • Label: target_year2_continuation                                           │
+└─────────────────────────────────┬───────────────────────────────────────────┘
+                                  │
+                                  ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│              CLEANING & ENCODING  (enrollment_prediction.py)                  │
+│  • Impute missing values                                                    │
+│  • StandardScaler  →  Z-scores for numeric features                         │
+│  • OneHotEncoder   →  0/1 flags for categorical features                    │
+│  • Exclude IDs, targets, and post-outcome fields                            │
+└─────────────────────────────────┬───────────────────────────────────────────┘
+                                  │
+                                  ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│         HISTORICAL WALK-FORWARD VALIDATION                                  │
+│  Fold 1: Train 2010-2014 → Test 2015                                        │
+│  Fold 2: Train 2010-2015 → Test 2016                                        │
+│  ...                                                                          │
+│  Fold 9: Train 2010-2022 → Test 2023                                        │
+│  → Measure ROC-AUC stability & model drift over time                        │
+└─────────────────────────────────┬───────────────────────────────────────────┘
+                                  │
+                                  ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│         TEMPORAL TRAIN / VALIDATION / TEST SPLIT                            │
+│  Train: 2010-2020  |  Validation: 2021  |  Test: 2022-2023                 │
+│  → Fit Logistic Regression, Random Forest, XGBoost, LightGBM                │
+└─────────────────────────────────┬───────────────────────────────────────────┘
+                                  │
+                                  ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    PROBABILITY SCORING                                      │
+│  Each EMPLID + COH_QUALIF  →  P(continue to Year 2)  =  P_i                │
+│  Program headcount estimate  →  Σ P_i  (expected continuers)                │
+└─────────────────────────────────┬───────────────────────────────────────────┘
+                                  │
+                                  ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    RISK GROUPING                                            │
+│  P_i ≥ 0.70  →  Low Risk                                                    │
+│  0.40 ≤ P_i < 0.70  →  Moderate Risk                                        │
+│  P_i < 0.40  →  High Risk                                                   │
+└─────────────────────────────────┬───────────────────────────────────────────┘
+                                  │
+                                  ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│         SHAP / COEFFICIENT DRIVER AGGREGATION                               │
+│  Logistic Regression  →  β coefficients (global + per-feature direction)    │
+│  Tree models          →  TreeSHAP per student (dashboard recommended)       │
+│  Dashboard view       →  Average drivers among Moderate + High Risk only    │
+└─────────────────────────────────┬───────────────────────────────────────────┘
+                                  │
+                                  ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│         EXECUTIVE DASHBOARD & INTERVENTIONS                                 │
+│  • Cohort/program demand forecasts (Σ P_i by year × qualif × program)       │
+│  • At-risk student lists for advising outreach                                │
+│  • Top risk drivers for policy conversations                                  │
+│  • Walk-forward stability charts for model governance                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+```

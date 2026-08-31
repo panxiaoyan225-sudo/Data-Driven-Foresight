@@ -65,7 +65,7 @@ This rollup is exactly what the pipeline produces in files like `outputs/enrolme
 
 ### Overview: two data worlds, one modeling table
 
-Our pipeline combines **internal student records** with **external environmental indicators** into a single analysis-ready table. The work happens in two stages:
+My pipeline combines **internal student records** with **external environmental indicators** into a single analysis-ready table. The work happens in two stages:
 
 1. **SQL feature engineering** (`01_feature_engineering.sql`) — run inside DuckDB  
 2. **Python model training** (`enrollment_prediction.py`) — encoding, scaling, and prediction
@@ -168,7 +168,7 @@ Not every column in the dataset should be used as a model input. Using the wrong
 | **Maturity flags** | `is_mature_cohort` | Used to filter training data, not as a feature |
 | **Descriptive metadata** | `plan`, `program`, `entering_subject`, `reg_subject`, `acad_year` | Redundant with encoded features or not used in the current model spec |
 
-> **Important:** `coh_year` *is* included as a numeric feature because cohort-era effects (e.g., COVID-19 entry year) matter for prediction. However, it is also the basis for our **temporal train/test splits** — the model never trains on future years to predict past years.
+> **Important:** `cohort_year` *is* included as a numeric feature because cohort-era effects (e.g., COVID-19 entry year) matter for prediction. However, it is also the basis for our **temporal train/test splits** — the model never trains on future years to predict past years.
 
 ### Data leakage prevention
 
@@ -273,7 +273,7 @@ This is intentional: the test set represents **the most recent real-world condit
 
 The model ranked A above B — **correct ordering**. ROC-AUC captures whether this ordering holds across *all* pairs of students, not just whether the 0.5 threshold was perfect.
 
-**Why we care about ranking:** Advising teams often work top-down — contact the highest-risk students first. A model that ranks well is valuable even if the exact 0.5 cutoff is imperfect.
+**Why I care about ranking:** Advising teams often work top-down — contact the highest-risk students first. A model that ranks well is valuable even if the exact 0.5 cutoff is imperfect.
 
 #### Other metrics reported
 
@@ -290,7 +290,7 @@ The model ranked A above B — **correct ordering**. ROC-AUC captures whether th
 
 ### Models compared
 
-We train four candidate models and select the best balance of accuracy, interpretability, and maintainability:
+I  train four candidate models and select the best balance of accuracy, interpretability, and maintainability:
 
 | Model | Type | Strengths | Trade-offs |
 |---|---|---|---|
@@ -319,7 +319,7 @@ Selection rationale: `outputs/final_model_selection.json`
 
 ### Explaining risk drivers
 
-Stakeholders rightly ask: *"Why is this student flagged?"* We answer with **feature contributions** — how each input pushed the score up or down.
+Stakeholders rightly ask: *"Why is this student flagged?"* I answer with **feature contributions** — how each input pushed the score up or down.
 
 #### Logistic Regression: coefficient weights ($\beta$)
 
