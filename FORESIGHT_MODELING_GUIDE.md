@@ -161,7 +161,7 @@ Not every column in the dataset should be used as a model input. Using the wrong
 | Column type | Examples | Why excluded |
 |---|---|---|
 | **Student identifiers** | IDs carry no predictive pattern; including them would memorize individuals |
-| **Target label** | `target_year2_continuation` | This is what we are trying to predict — using it as input would be cheating |
+| **Target label** | `target_year2_continuation` | This is what I am trying to predict — using it as input would be cheating |
 | **Post-outcome fields** | `max_years_observed`, `ever_graduated`, `lifecycle_row_count` | These are only known *after* the student has progressed — not available at prediction time |
 | **Maturity flags** | `is_mature_cohort` | Used to filter training data, not as a feature |
 | **Descriptive metadata** | `plan name`, `program name`, `entering_subject`, `reg_subject`, `acad_year` | Redundant with encoded features or not used in the current model spec |
@@ -175,11 +175,11 @@ Not every column in the dataset should be used as a model input. Using the wrong
 **Student example:**
 
 > **Wrong (leaky):** Use "total credits earned in Year 1 Winter term" to predict whether a student shows up on Day 1 of Year 2.  
-> By Winter of Year 1, we already know the student survived Fall — that is partially the answer we are trying to predict early.
+> By Winter of Year 1,I already know the student survived Fall — that is partially the answer I am trying to predict early.
 
 > **Right (leakage-safe):** Use only information known at **entry** — program, residency, coop intent, prior institutional trends, and macro indicators for that entry year.
 
-Our SQL enforces this by:
+My SQL enforces this by:
 
 1. Taking the **COHORTE** (entry) snapshot per StudentID + StudyLevel 
 2. Computing historical trend features with **lagged** windows (prior years only)  
@@ -197,7 +197,7 @@ In a typical K-fold cross-validation, the dataset is shuffled and split into $K$
 
 - It learns patterns from 2022–2023 while being tested on 2014.  
 - This creates **look-ahead bias** — performance looks artificially high.  
-- In production, we only ever predict *forward* in time, so our validation must mirror that.
+- In production, I only ever predict *forward* in time, so my validation must mirror that.
 
 **Analogy:** Random K-fold is like studying for a history exam by reading the answer key first. Walk-forward validation is like taking practice exams in chronological order — the only honest way to know if you are ready for next year.
 
@@ -217,7 +217,7 @@ I require at least **5 cohort years** of training history before the first test 
 
 | Fold | Training cohorts | Test cohort | What this simulates |
 |---|---|---|---|
-| 1 | 2010–2014 | 2015 | "If we deployed in 2015, how would we score the 2015 entrants?" |
+| 1 | 2010–2014 | 2015 | "If I deployed in 2015, how would I score the 2015 entrants?" |
 | 2 | 2010–2015 | 2016 | Expanding window — more history each year |
 | 3 | 2010–2016 | 2017 | … |
 | 4 | 2010–2017 | 2018 | … |
@@ -233,7 +233,7 @@ Fold-level detail is saved to `outputs/walk_forward_validation_folds.csv`.
 
 ### Data splitting: training, validation, and test sets
 
-After walk-forward validation establishes historical stability, we fit the final candidate models using a **temporal holdout structure**. Think of it like school:
+After walk-forward validation establishes historical stability, I fit the final candidate models using a **temporal holdout structure**. Think of it like school:
 
 | Set | Role | Analogy | My pipeline (cohort years) |
 |---|---|---|---|
@@ -251,7 +251,7 @@ Many textbooks recommend splitting data **60% train / 20% validation / 20% test*
 - **Validation:** ~7% (1 recent cohort year)  
 - **Test:** ~11% (2 most recent cohort years)
 
-This is intentional: the test set represents **the most recent real-world conditions** the model would face in production — including post-pandemic and policy-shift cohorts. A random 60/20/20 split would scatter recent years into training and destroy the temporal integrity we need.
+This is intentional: the test set represents **the most recent real-world conditions** the model would face in production — including post-pandemic and policy-shift cohorts. A random 60/20/20 split would scatter recent years into training and destroy the temporal integrity I need.
 
 ### Evaluation metric: ROC-AUC explained
 
@@ -278,7 +278,7 @@ The model ranked A above B — **correct ordering**. ROC-AUC captures whether th
 | Metric | Plain-language meaning |
 |---|---|
 | **Precision** | Of students flagged "at risk," how many actually left? |
-| **Recall** | Of students who actually left, how many did we flag? |
+| **Recall** | Of students who actually left, how many did I flag? |
 | **F1** | Balance between precision and recall |
 | **Confusion matrix** | Table of true/false positives and negatives at the 0.5 threshold |
 
@@ -346,7 +346,7 @@ For Random Forest, XGBoost, and LightGBM, global **feature importances** show wh
 
 ### Risk grouping and dashboard driver aggregation
 
-Once each student pathway has a probability $P_i$, we assign a **risk tier** for operational use:
+Once each student pathway has a probability $P_i$,I assign a **risk tier** for operational use:
 
 | Risk tier | Typical threshold | Suggested action |
 |---|---|---|
