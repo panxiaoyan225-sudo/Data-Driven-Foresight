@@ -1,5 +1,5 @@
 
-#  FORESIGHT MODELING GUIDE
+#  Foresight Modeling Guide
 
  
 **Audience:** Institutional stakeholders, academic planners, and analysts  
@@ -9,9 +9,9 @@
 
 ## 1. Executive Summary & Core Objective
 
-### Why we predict Year 2 continuation
+### Why I predict Year 2 continuation
 
-Every fall, a new cohort of students begins their program. By the end of Year 1, some students leave — and **Year 1 → Year 2 is the single highest-risk transition** in most undergraduate lifecycles. If we can estimate *who* is likely to continue and *how many* students a program will retain, we can:
+Every fall, a new cohort of students begins their program. By the end of Year 1, some students leave — and **Year 1 → Year 2 is the single highest-risk transition** in most undergraduate lifecycles. If I can estimate *who* is likely to continue and *how many* students a program will retain, I can:
 
 | Planning need | How the model helps |
 |---|---|
@@ -22,7 +22,7 @@ Every fall, a new cohort of students begins their program. By the end of Year 1,
 
 Think of the model as a **weather forecast for enrolment**: it does not tell us with certainty whether any one student will stay, but it gives us a well-calibrated probability for each student — and those probabilities roll up into reliable program-level numbers.
 
-### What we predict (and at what grain)
+### What I predict (and at what grain)
 
 Each prediction is made for a unique combination of:
 
@@ -71,14 +71,14 @@ Our pipeline combines **internal student records** with **external environmental
 2. **Python model training** (`enrollment_prediction.py`) — encoding, scaling, and prediction
 
 ```
-lifecycle_data.csv  ──►  SQL (DuckDB)  ──►  enrollment_modeling_dataset.csv
+lifecycle_data  ──►  SQL (DuckDB)  ──►  enrollment_modeling_dataset
                                     │
                                     └──►  enrollment_prediction.py  ──►  outputs/
 ```
 
 ### Database sources
 
-#### Internal: student lifecycle snapshot (`lifecycle_data.csv`)
+#### Internal: student lifecycle snapshot (`lifecycle_data`)
 
 This file contains one row per student per term in their academic journey. Key fields include:
 
@@ -102,7 +102,7 @@ Macro-level conditions that may influence enrolment patterns are joined by **coh
 | `youth_demographic_index` | StatsCan population / youth cohort projections |
 | `geopolitical_risk_index` | Composite economic / global risk proxy (e.g., ESDC, World Bank) |
 
-> **Note:** In the current `Enrollment_revised` prototype, these external series are **placeholder values** embedded in SQL. Before production deployment, they should be replaced with live feeds from StatsCan, IRCC, and ESDC.
+> **Note:** In the current `File_revised` prototype, these external series are **placeholder values** embedded in SQL. Before production deployment, they should be replaced with live feeds from StatsCan, IRCC, and ESDC.
 
 #### Historical enrolment trends (lagged, leakage-safe)
 
@@ -385,7 +385,7 @@ StudentID | Studylevel | cohort_year | program | y_true | y_prob | y_pred
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                        RAW DATA SOURCES                                     │
 │  ┌──────────────────────┐    ┌──────────────────────────────────────────┐   │
-│  │ lifecycle_data2.csv  │    │ External indicators (StatsCan / IRCC /   │   │
+│  │ lifecycle_data       │    │ External indicators (StatsCan / IRCC /   │   │
 │  │ (student snapshots)  │    │ ESDC proxies by cohort year)             │   │
 │  └──────────┬───────────┘    └──────────────────┬───────────────────────┘   │
 └─────────────┼───────────────────────────────────┼───────────────────────────┘
