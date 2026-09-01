@@ -6,7 +6,6 @@
 
 This repository presents data-driven foresight: using longitudinal data, statistical modeling, validation, and predictive analysis to move from historical evidence toward forward-looking intelligence.
 
- [📊 View Foresight Modeling Guide](https://github.com/panxiaoyan225-sudo/Data-Driven-Foresight/blob/main/FORESIGHT_MODELING_GUIDE.md)
 
 ## Why This Matters
 
@@ -80,6 +79,7 @@ These results are provided without exposing underlying student-level data.
 - `confusion_random_forest.png`
 - `confusion_xgboost.png`
 - `logistic_regression_forecast.png`
+- `Selected presentation slides`
 
 Additional figures may be added as the analysis develops.
 
@@ -88,6 +88,8 @@ Additional figures may be added as the analysis develops.
 The detailed methodology is documented in:
 
 **`FORESIGHT_MODELING_GUIDE.md`**
+
+ [📊 View Foresight Modeling Guide](https://github.com/panxiaoyan225-sudo/Data-Driven-Foresight/blob/main/FORESIGHT_MODELING_GUIDE.md)
 
 The guide focuses on the reasoning behind the prediction:
 
