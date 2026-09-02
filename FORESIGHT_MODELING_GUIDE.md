@@ -101,13 +101,12 @@ For each qualification and program, the SQL computes **prior-year** headcount , 
 
 #### External: environmental indicators
 
-**WHY I included external environmental indicators?**
-
-**Because enrolment and continuation do not happen in isolation from the broader environment.**
+WHY I included external environmental indicators?
+ **Because enrolment and continuation do not happen in isolation from the broader environment.**
 
 Macro-level conditions that may influence enrolment patterns are joined by **cohort entry year**:
 
-| Indicator in my model | Real-world source (production target) |
+| Indicator in my model | Real-world source |
 |---|---|
 | `labour_market_unemployment` | Statistics Canada Labour Force Survey |
 | `immigration_policy_tightness` | IRCC policy / study permit processing trends |
