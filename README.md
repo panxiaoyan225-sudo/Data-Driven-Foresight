@@ -25,7 +25,8 @@ The model is one component of that process.
 
 **Understand the problem → understand the underlying data → define the prediction unit → model historical patterns → validate against the future → compare predictive approaches → communicate what may happen next.**
 
-The emphasis is not simply on selecting a predictive model. Reliable foresight depends on first understanding the problem and the structure of the data, defining the population correctly, choosing validation methods that respect the temporal nature of the problem, and interpreting model results in a decision context.
+The emphasis is not simply on selecting a predictive model.
+ **Reliable foresight depends on first understanding the problem and the structure of the data, defining the population correctly, choosing validation methods that respect the temporal nature of the problem, and interpreting model results in a decision context.**
 
 ## Case Study: Enrollment Continuation Forecasting
 
@@ -33,7 +34,7 @@ This project uses enrollment data as a demonstration of how historical student p
 
 The analysis considers students within their respective qualification levels and uses the first term within each qualification as the cohort reference point. This avoids treating a student's earliest university enrollment as the cohort anchor when the same student may subsequently enter a different level of study.
 
-The objective is to estimate the probability of second-year continuation from historical enrollment patterns.
+**The objective is to estimate the probability of second-year continuation from historical enrollment patterns.**
 
 ## Modeling
 
