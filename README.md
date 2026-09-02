@@ -29,7 +29,7 @@ The emphasis is not simply on selecting a predictive model.
  **Reliable foresight depends on first understanding the problem and the structure of the data, defining the population correctly, choosing validation methods that respect the temporal nature of the problem, and interpreting model results in a decision context.**
 
 ## Case Study: Enrollment Continuation Forecasting
-I uses enrollment data as a demonstration of how historical student pathways can be transformed into forward-looking continuation probabilities.
+I use enrollment data as a demonstration of how historical student pathways can be transformed into forward-looking continuation probabilities.
 
 The analysis considers students within their respective qualification levels and uses the first term within each qualification as the cohort reference point. This avoids treating a student's earliest university enrollment as the cohort anchor when the same student may subsequently enter a different level of study.
 
@@ -59,7 +59,7 @@ The purpose of comparing models is not to assume that the most complex model is 
 
 ## Temporal Validation
 
-Enrollment data is inherently temporal. I therefore uses **historical forward validation** to evaluate predictive performance.
+Enrollment data is inherently temporal. I therefore use **historical forward validation** to evaluate predictive performance.
 
 Rather than randomly mixing observations from different periods, the validation approach respects the direction of time:
 
@@ -138,15 +138,15 @@ Although the case study is based on enrollment continuation, the underlying appr
 │                        RAW DATA SOURCES                                     │
 │  ┌──────────────────────┐    ┌──────────────────────────────────────────┐   │
 │  │ lifecycle_data       │    │ External indicators (StatsCan / IRCC /   │   │
-│  │ (student snapshots)  │    │ ESDC proxies by cohort year)             │   │
+│  │ (snapshots)          │    │ ESDC proxies by cohort year)             │   │
 │  └──────────┬───────────┘    └──────────────────┬───────────────────────┘   │
 └─────────────┼───────────────────────────────────┼───────────────────────────┘
               │                                   │
               ▼                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │              SQL FEATURE ENGINEERING  (01_feature_engineering.sql)          │
-│  • One row per StudentID + studylevel                                       │
-│  • Entry-time (COHORTE) snapshot only                                       │
+│  • One row per Student at respective qualification level                    │
+│  • Entry-time  snapshot only                                                │
 │  • Lagged historical trends (no leakage)                                    │
 │  • Join external indicators by cohort year                                  │
 │  • Label: target_year2_continuation                                         │

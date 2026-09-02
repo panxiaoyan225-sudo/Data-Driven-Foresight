@@ -391,15 +391,15 @@ StudentID | Studylevel | cohort_year | program | y_true | y_prob | y_pred
 │                        RAW DATA SOURCES                                     │
 │  ┌──────────────────────┐    ┌──────────────────────────────────────────┐   │
 │  │ lifecycle_data       │    │ External indicators (StatsCan / IRCC /   │   │
-│  │ (student snapshots)  │    │ ESDC proxies by cohort year)             │   │
+│  │ (snapshots)          │    │ ESDC proxies by cohort year)             │   │
 │  └──────────┬───────────┘    └──────────────────┬───────────────────────┘   │
 └─────────────┼───────────────────────────────────┼───────────────────────────┘
               │                                   │
               ▼                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │              SQL FEATURE ENGINEERING  (01_feature_engineering.sql)          │
-│  • One row per StudentID + studylevel                                       │
-│  • Entry-time (COHORTE) snapshot only                                       │
+│  • One row per Student at respective qualification level                    │
+│  • Entry-time  snapshot only                                                │
 │  • Lagged historical trends (no leakage)                                    │
 │  • Join external indicators by cohort year                                  │
 │  • Label: target_year2_continuation                                         │
