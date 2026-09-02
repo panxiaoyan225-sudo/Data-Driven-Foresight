@@ -55,7 +55,7 @@ $$
 - **Hard count** (threshold at 0.5): $1 + 1 + 0 + 0 = \mathbf{2}$ continuers  
 - **Expected value** (sum of probabilities): $0.90 + 0.70 + 0.40 + 0.30 = \mathbf{2.30}$ continuers
 
-The expected-value approach is smoother and more accurate at the program level because it respects uncertainty. A student at 40% risk still contributes partial "expected" enrolment — which better reflects reality than treating them as a definite departure.
+**The expected-value approach is smoother and more accurate at the program level because it respects uncertainty. A student at 40% risk still contributes partial "expected" enrolment — which better reflects reality than treating them as a definite departure.**
 
 This rollup is exactly what the pipeline produces in files like `outputs/enrolment_demand_forecast_test.csv` and `outputs/logistic_regression_forecast.csv`, where `predicted_y2_expected` is the sum of $\sum P_i$ by cohort year, qualification, and program.
 
@@ -84,11 +84,20 @@ This file contains one row per student per term in their academic journey. Key f
 
 - **Identity**
 - **Cohort timing**
-- **Program structure:** 
-- **Demographics:** residency (`Intern_domest`), sex, immigration group  
-- **Outcome tracking:** 
+- **Program structure** 
+- **Demographics** residency, sex, immigration group  
+- **Outcome tracking** 
 
 The SQL layer collapses this raw history into **one row per student ID + level of study**, using only information available at or near entry (the "COHORTE" snapshot — the student's first recorded term on that qualification).
+
+#### Historical enrolment trends (lagged, leakage-safe)
+
+For each qualification and program, the SQL computes **prior-year** headcount and Year 2 continuation rates — never using the current year's outcomes to predict itself. These become features like `hist_prior_y2_rate` and `hist_roll3_y2_rate`.
+
+- **Prior headcount**
+- **Prior Year-2 continuation rate**
+- **3-year rolling headcount** 
+- **3-year rolling Year-2 rate** 
 
 #### External: environmental indicators (`external_indicators` table)
 
@@ -102,9 +111,7 @@ Macro-level conditions that may influence enrolment patterns are joined by **coh
 | `youth_demographic_index` | StatsCan population / youth cohort projections |
 | `geopolitical_risk_index` | Composite economic / global risk proxy (e.g., ESDC, World Bank) |
 
-#### Historical enrolment trends (lagged, leakage-safe)
 
-For each qualification and program, the SQL computes **prior-year** headcount and Year 2 continuation rates — never using the current year's outcomes to predict itself. These become features like `hist_prior_y2_rate` and `hist_roll3_y2_rate`.
 
 ### Data preprocessing made simple
 
