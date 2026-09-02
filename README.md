@@ -31,9 +31,19 @@ The emphasis is not simply on selecting a predictive model.
 ## Case Study: Enrollment Continuation Forecasting
 I use enrollment data as a demonstration of how historical student pathways can be transformed into forward-looking continuation probabilities.
 
-The analysis considers students within their respective qualification levels and uses the first term within each qualification as the cohort reference point. This avoids treating a student's earliest university enrollment as the cohort anchor when the same student may subsequently enter a different level of study.
-
 **The objective is to estimate the probability of second-year continuation from historical enrollment patterns.**
+
+### Why I predict Year 2 continuation
+
+| Planning need | How the model helps |
+|---|---|
+| **Early intervention** | Advisors can reach students *before* they disengage, while there is still time to offer support. |
+| **Capacity planning** | Departments can estimate how many Year 2 seats, sections, and lab spots they will need. |
+| **Tuition & budget forecasting** | Finance teams can project revenue from continuing students rather than relying on last year's headcount. |
+| **Program health monitoring** | Leaders can spot whether a specific qualification pathway (e.g., a degree vs. a certificate) is retaining students at expected rates. |
+
+Think of the model as a **weather forecast for enrolment**: it does not tell us with certainty whether any one student will stay, but it gives us a well-calibrated probability for each student — and those probabilities roll up into reliable program-level numbers.
+
 
 ## Modeling
 
