@@ -88,18 +88,22 @@ This file contains one row per student per term in their academic journey. Key f
 - **Demographics** residency, sex, immigration group  
 - **Outcome tracking** 
 
-The SQL layer collapses this raw history into **one row per student ID + level of study**, using only information available at or near entry (the "COHORTE" snapshot — the student's first recorded term on that qualification).
+The SQL layer collapses this raw history into **one row per studentID + studylevel**, using only information available at or near entry (the "COHORTE" snapshot — the student's first recorded term on that qualification).
 
 #### Historical enrolment trends (lagged, leakage-safe)
 
-For each qualification and program, the SQL computes **prior-year** headcount and Year 2 continuation rates — never using the current year's outcomes to predict itself. These become features like `hist_prior_y2_rate` and `hist_roll3_y2_rate`.
+For each qualification and program, the SQL computes **prior-year** headcount , **prior-year** continuation rates — never using the current year's outcomes to predict itself. These become features like `hist_prior_y2_rate` and `hist_roll3_y2_rate`.
 
 - **Prior headcount**
 - **Prior Year-2 continuation rate**
 - **3-year rolling headcount** 
 - **3-year rolling Year-2 rate** 
 
-#### External: environmental indicators (`external_indicators` table)
+#### External: environmental indicators
+
+**WHY I included external environmental indicators?**
+
+**Because enrolment and continuation do not happen in isolation from the broader environment.**
 
 Macro-level conditions that may influence enrolment patterns are joined by **cohort entry year**:
 
@@ -171,7 +175,7 @@ Not every column in the dataset should be used as a model input. Using the wrong
 | **Target label** | `target_year2_continuation` | This is what I am trying to predict — using it as input would be cheating |
 | **Post-outcome fields** | `max_years_observed`, `ever_graduated`, `lifecycle_row_count` | These are only known *after* the student has progressed — not available at prediction time |
 | **Maturity flags** | `is_mature_cohort` | Used to filter training data, not as a feature |
-| **Descriptive metadata** | `plan name`, `program name`, `entering_subject`, `reg_subject`, `acad_year` | Redundant with encoded features or not used in the current model spec |
+| **Descriptive metadata** | `plan`, `program`, `subject`, `acad_year` | Redundant with encoded features or not used in the current model spec |
 
 > **Important:** `cohort_year` *is* included as a numeric feature because cohort-era effects (e.g., COVID-19 entry year) matter for prediction. However, it is also the basis for our **temporal train/test splits** — the model never trains on future years to predict past years.
 
@@ -188,7 +192,7 @@ Not every column in the dataset should be used as a model input. Using the wrong
 
 My SQL enforces this by:
 
-1. Taking the **COHORTE** (entry) snapshot per StudentID + StudyLevel 
+1. Taking the **COHORTE** snapshot per StudentID + StudyLevel 
 2. Computing historical trend features with **lagged** windows (prior years only)  
 3. Training only on **mature cohorts** where Year 2 outcomes have actually been observed
 
@@ -490,8 +494,8 @@ python enrollment_prediction.py
 
 | Term | Definition |
 |---|---|
-| **StudentID** | Unique student identifier in the institutional system |
-| **StudyLevel** | Qualification pathway code (degree, certificate, etc.) |
+| **Student ID** | Unique student identifier in the institutional system |
+| **Study Level** | Qualification pathway code (degree, certificate, etc.) |
 | **COHORTE** | The entry-term snapshot row in lifecycle data |
 | **Walk-forward validation** | Train on the past, test on the next future period, repeat |
 | **ROC-AUC** | Ranking quality score from 0.5 (random) to 1.0 (perfect) |
