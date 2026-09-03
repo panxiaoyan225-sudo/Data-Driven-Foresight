@@ -42,7 +42,7 @@ I use enrollment data as a demonstration of how historical student pathways can 
 | **Tuition & budget forecasting** | Finance teams can project revenue from continuing students rather than relying on last year's headcount. |
 | **Program health monitoring** | Leaders can spot whether a specific qualification pathway (e.g., a degree vs. a certificate) is retaining students at expected rates. |
 
-Think of the model as a **weather forecast for enrolment**: it does not tell us with certainty whether any one student will stay, but it gives us a well-calibrated probability for each student — and those probabilities roll up into reliable program-level numbers.
+Think of the model as a **weather forecast for enrolment**: it does not tell us with certainty whether any one student will stay, but it gives us an estimated probability for each student — and those probabilities roll up into reliable program-level numbers.
 
 
 ## Modeling
