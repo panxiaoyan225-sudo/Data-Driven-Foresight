@@ -93,6 +93,10 @@ These results are provided without exposing underlying student-level data.
 
 Additional figures may be added as the analysis develops.
 
+### Presentation
+
+A selected presentation illustrating the institutional intelligence architecture, lifecycle data foundation, predictive foresight, and operational decision integration. Full presentation available upon request.
+
 ## Methodology Guide
 
 The detailed methodology is documented in:
