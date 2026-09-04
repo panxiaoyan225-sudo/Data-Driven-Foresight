@@ -33,7 +33,7 @@ I use enrollment data as a demonstration of how historical student pathways can 
 
 **The objective is to estimate the probability of second-year continuation from historical enrollment patterns.**
 
-### Why I predict Year 2 continuation
+### Why I predict Year 2 continuation: whether the prediction arrives early enough to support action 
 
 | Planning need | How the model helps |
 |---|---|

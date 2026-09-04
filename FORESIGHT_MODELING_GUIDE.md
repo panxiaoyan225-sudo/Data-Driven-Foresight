@@ -9,7 +9,7 @@
 
 ## 1. Executive Summary & Core Objective
 
-### Why I predict Year 2 continuation
+### Why I predict Year 2 continuation: whether the prediction arrives early enough to support action 
 
 Every fall, a new cohort of students begins their program. By the end of Year 1, some students leave — and **Year 1 → Year 2 is the single highest-risk transition** in most undergraduate lifecycles. If I can estimate *who* is likely to continue and *how many* students a program will retain, I can:
 
