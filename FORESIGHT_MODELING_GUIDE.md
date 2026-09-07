@@ -78,15 +78,9 @@ lifecycle_data  ──►  SQL (DuckDB)  ──►  enrollment_modeling_dataset
 
 ### Database sources
 
-#### Internal: student lifecycle snapshot (`lifecycle_data`)
+#### Internal: student lifecycle data
 
-This file contains one row per student per term in their academic journey. Key fields include:
-
-- **Identity**
-- **Cohort timing**
-- **Program structure** 
-- **Demographics** residency, sex, immigration group  
-- **Outcome tracking** 
+This file contains Student / program characteristics . 
 
 The SQL layer collapses this raw history into **one row per studentID + studylevel**, using only information available at or near entry (the "COHORTE" snapshot — the student's first recorded term on that qualification).
 
@@ -127,7 +121,7 @@ Before scaling or encoding, gaps are filled:
 - **Numeric columns:** median imputation (the middle value — robust to outliers)  
 - **Categorical columns:** most frequent category
 
-#### Step 2: Z-score standardization (`StandardScaler`)
+#### Step 2: Z-score standardization 
 
 Continuous numeric features are rescaled so the training data has **mean $\mu = 0$** and **standard deviation $\sigma = 1$**:
 
@@ -143,7 +137,7 @@ Numeric features scaled in our pipeline include:
 
 Cohort/Program inforamtion, , study-duration fields, international/coop/load flags, historical trend fields, and all five external indicators.
 
-#### Step 3: One-hot encoding (`OneHotEncoder`)
+#### Step 3: One-hot encoding 
 
 Text categories cannot be fed directly into math equations. **One-hot encoding** converts each category into a set of 0/1 columns.
 
@@ -191,7 +185,7 @@ Not every column in the dataset should be used as a model input. Using the wrong
 
 My SQL enforces this by:
 
-1. Taking the **COHORTE** snapshot per StudentID + StudyLevel 
+1. Taking the snapshot per StudentID + StudyLevel 
 2. Computing historical trend features with **lagged** windows (prior years only)  
 3. Training only on **mature cohorts** where Year 2 outcomes have actually been observed
 
@@ -394,18 +388,17 @@ StudentID | Studylevel | cohort_year | program | y_true | y_prob | y_pred
 │                        RAW DATA SOURCES                                     │
 │  ┌──────────────────────┐    ┌──────────────────────────────────────────┐   │
 │  │ lifecycle_data       │    │ External indicators (StatsCan / IRCC /   │   │
-│  │ (snapshots)          │    │ ESDC proxies by cohort year)             │   │
+│  │                      │    │ ESDC proxies by cohort year)             │   │
 │  └──────────┬───────────┘    └──────────────────┬───────────────────────┘   │
 └─────────────┼───────────────────────────────────┼───────────────────────────┘
               │                                   │
               ▼                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │              SQL FEATURE ENGINEERING  (01_feature_engineering.sql)          │
-│  • One row per Student at respective qualification level                    │
-│  • Entry-time  snapshot only                                                │
-│  • Lagged historical trends (no leakage)                                    │
-│  • Join external indicators by cohort year                                  │
-│  • Label: target_year2_continuation                                         │
+│  • Student / program characteristics                                        │                                 
+│  • Historical trends (no leakage)                                           │
+│  • External environmental indicators                                        │
+│  • Objective: target_year2_continuation                                     │
 └─────────────────────────────────┬───────────────────────────────────────────┘
                                   │
                                   ▼
@@ -467,12 +460,6 @@ StudentID | Studylevel | cohort_year | program | y_true | y_prob | y_pred
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### How to run the pipeline
-
-```powershell
-cd c:\Python\File_revised
-python enrollment_prediction.py
-```
 
 ### Key output files
 

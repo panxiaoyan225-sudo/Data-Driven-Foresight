@@ -152,18 +152,17 @@ Although the case study is based on enrollment continuation, the underlying appr
 │                        RAW DATA SOURCES                                     │
 │  ┌──────────────────────┐    ┌──────────────────────────────────────────┐   │
 │  │ lifecycle_data       │    │ External indicators (StatsCan / IRCC /   │   │
-│  │ (snapshots)          │    │ ESDC proxies by cohort year)             │   │
+│  │                      │    │ ESDC proxies by cohort year)             │   │
 │  └──────────┬───────────┘    └──────────────────┬───────────────────────┘   │
 └─────────────┼───────────────────────────────────┼───────────────────────────┘
               │                                   │
               ▼                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │              SQL FEATURE ENGINEERING  (01_feature_engineering.sql)          │
-│  • One row per Student at respective qualification level                    │
-│  • Entry-time  snapshot only                                                │
-│  • Lagged historical trends (no leakage)                                    │
-│  • Join external indicators by cohort year                                  │
-│  • Label: target_year2_continuation                                         │
+│  • Student / program characteristics                                        │                                 
+│  • Historical trends (no leakage)                                           │
+│  • External environmental indicators                                        │
+│  • Objective: target_year2_continuation                                     │
 └─────────────────────────────────┬───────────────────────────────────────────┘
                                   │
                                   ▼
