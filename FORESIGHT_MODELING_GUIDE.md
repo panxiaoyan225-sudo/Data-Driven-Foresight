@@ -23,12 +23,6 @@ Every fall, a new cohort of students begins their program. By the end of Year 1,
 Think of the model as a **weather forecast for enrolment**: it does not tell us with certainty whether any one student will stay, but it gives us an estimated probability for each student — and those probabilities roll up into reliable program-level numbers.
 
 ### What I predict (and at what grain)
-
-Each prediction is made for a unique combination of:
-
-- **the_student's_institutional_ID**
-- **StudyLevel** — the qualification pathway they entered (e.g., Bachelor, Master)
-
 A single student can appear more than once if they pursued multiple qualification pathways over time. Each pathway is modeled independently because the risk profile of "first-year Economics" may differ from "first-year Engineering transfer."
 
 **Target label:** `target_year2_continuation`  
@@ -82,23 +76,22 @@ lifecycle_data  ──►  SQL (DuckDB)  ──►  enrollment_modeling_dataset
 
 This file contains Student / program characteristics . 
 
-The SQL layer collapses this raw history into **one row per studentID + studylevel**, using only information available at or near entry (the "COHORTE" snapshot — the student's first recorded term on that qualification).
+The SQL layer uses only information available at or near entry (the snapshot — the student's first recorded term on that qualification).
 
 #### Historical enrolment trends (lagged, leakage-safe)
-
-For each qualification and program, the SQL computes **prior-year** headcount , **prior-year** continuation rates — never using the current year's outcomes to predict itself. These become features like `hist_prior_y2_rate` and `hist_roll3_y2_rate`.
-
 - **Prior headcount**
 - **Prior Year-2 continuation rate**
 - **3-year rolling headcount** 
 - **3-year rolling Year-2 rate** 
+
+Never using the current year's outcomes to predict itself. 
 
 #### External: environmental indicators
 
 WHY I included external environmental indicators?
  **Because enrolment and continuation do not happen in isolation from the broader environment.**
 
-Macro-level conditions that may influence enrolment patterns are joined by **cohort entry year**:
+Macro-level conditions that may influence enrolment patterns:
 
 | Indicator in my model | Real-world source |
 |---|---|
@@ -185,7 +178,7 @@ Not every column in the dataset should be used as a model input. Using the wrong
 
 My SQL enforces this by:
 
-1. Taking the snapshot per StudentID + StudyLevel 
+1. Taking the snapshot available at entry
 2. Computing historical trend features with **lagged** windows (prior years only)  
 3. Training only on **mature cohorts** where Year 2 outcomes have actually been observed
 
@@ -430,8 +423,8 @@ StudentID | Studylevel | cohort_year | program | y_true | y_prob | y_pred
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                    PROBABILITY SCORING                                      │
-│  Each StudentID + StudyLevel  →  P(continue to Year 2)  =  P_i              │
-│  Program headcount estimate  →  Σ P_i  (expected continuers)                │
+│  Individual probabilities  →  P(continue to Year 2)  =  P_i                 │
+│  Program probabilities     →  Σ P_i  (expected continuers)                  │
 └─────────────────────────────────┬───────────────────────────────────────────┘
                                   │
                                   ▼
@@ -444,16 +437,15 @@ StudentID | Studylevel | cohort_year | program | y_true | y_prob | y_pred
                                   │
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│         SHAP / COEFFICIENT DRIVER AGGREGATION                               │
+│                    PREDICTIVE DRIVER AGGREGATION                            │
 │  Logistic Regression  →  β coefficients (global + per-feature direction)    │
-│  Tree models          →  TreeSHAP per student (dashboard recommended)       │
 │  Dashboard view       →  Average drivers among Moderate + High Risk only    │
 └─────────────────────────────────┬───────────────────────────────────────────┘
                                   │
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │         EXECUTIVE DASHBOARD & INTERVENTIONS                                 │
-│  • Cohort/program demand forecasts (Σ P_i by year × qualif × program)       │
+│  • Program demand forecasts                                                 │
 │  • At-risk student lists for advising outreach                              │
 │  • Top risk drivers for policy conversations                                │
 │  • Walk-forward stability charts for model governance                       │

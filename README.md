@@ -194,8 +194,8 @@ Although the case study is based on enrollment continuation, the underlying appr
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                    PROBABILITY SCORING                                      │
-│  Each StudentID + StudyLevel  →  P(continue to Year 2)  =  P_i              │
-│  Program headcount estimate  →  Σ P_i  (expected continuers)                │
+│  Individual probabilities  →  P(continue to Year 2)  =  P_i                 │
+│  Program probabilities     →  Σ P_i  (expected continuers)                  │
 └─────────────────────────────────┬───────────────────────────────────────────┘
                                   │
                                   ▼
@@ -208,16 +208,15 @@ Although the case study is based on enrollment continuation, the underlying appr
                                   │
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│         SHAP / COEFFICIENT DRIVER AGGREGATION                               │
+│                    PREDICTIVE DRIVER AGGREGATION                            │
 │  Logistic Regression  →  β coefficients (global + per-feature direction)    │
-│  Tree models          →  TreeSHAP per student (dashboard recommended)       │
 │  Dashboard view       →  Average drivers among Moderate + High Risk only    │
 └─────────────────────────────────┬───────────────────────────────────────────┘
                                   │
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │         EXECUTIVE DASHBOARD & INTERVENTIONS                                 │
-│  • Cohort/program demand forecasts (Σ P_i by year × qualif × program)       │
+│  • Program demand forecasts                                                 │
 │  • At-risk student lists for advising outreach                              │
 │  • Top risk drivers for policy conversations                                │
 │  • Walk-forward stability charts for model governance                       │
