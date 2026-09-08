@@ -310,9 +310,9 @@ Selection rationale: `outputs/final_model_selection.json`
 
 A common dashboard mistake is averaging feature contributions across **all** students — including low-risk students who dilute the signal. 
 
-The important question should be : **"What is driving risk among the students we need to help?"** — not **"What is average across everyone?"**
+My question is: **"What is driving risk among the students we need to help?"** — not **"What is average across everyone?"**
 
-Stakeholders rightly ask: **"Why is this student flagged?"** I answer with **feature contributions** — how each input pushed the score up or down.
+People rightly ask: **"Why is this student flagged?"** I answer with **feature contributions** — how each input pushed the score up or down.
 
 #### Logistic Regression: coefficient weights ($\beta$)
 
