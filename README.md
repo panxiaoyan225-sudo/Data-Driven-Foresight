@@ -1,4 +1,5 @@
-# Data-Driven Foresight - ##From historical evidence to what may happen next.
+# Data-Driven Foresight 
+## From historical evidence to what may happen next.
 
 **Once trusted data has been established, prediction becomes the next layer of intelligence.**
 
