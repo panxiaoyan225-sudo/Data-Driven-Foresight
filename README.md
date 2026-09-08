@@ -31,8 +31,6 @@ The emphasis is not simply on selecting a predictive model.
 ## Case Study: Enrollment Continuation Forecasting
 I use enrollment data as a demonstration of how historical student pathways can be transformed into forward-looking continuation probabilities.
 
-**The objective is to estimate the probability of second-year continuation from historical enrollment patterns.**
-
 ### Why I predict Year 2 continuation: whether the prediction arrives early enough to support action 
 
 | Planning need | How the model helps |
@@ -96,7 +94,6 @@ A selected presentation illustrating the institutional intelligence architecture
 ## Methodology Guide
 
 The detailed methodology is documented in:
-
 **`FORESIGHT_MODELING_GUIDE.md`**
 
  [📊 View Foresight Modeling Guide](https://github.com/panxiaoyan225-sudo/Data-Driven-Foresight/blob/main/FORESIGHT_MODELING_GUIDE.md)
