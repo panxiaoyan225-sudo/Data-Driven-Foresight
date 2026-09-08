@@ -1,11 +1,8 @@
-# Data-Driven Foresight
+# Data-Driven Foresight - ##From historical evidence to what may happen next.
 
 **Once trusted data has been established, prediction becomes the next layer of intelligence.**
 
-**From historical evidence to what may happen next.** 
-
 This repository presents data-driven foresight: using longitudinal data, statistical modeling, validation, and predictive analysis to move from historical evidence toward forward-looking intelligence.
-
 
 ## Why This Matters
 
@@ -31,7 +28,7 @@ The emphasis is not simply on selecting a predictive model.
 ## Case Study: Enrollment Continuation Forecasting
 I use enrollment data as a demonstration of how historical student pathways can be transformed into forward-looking continuation probabilities.
 
-### Why I predict Year 2 continuation: whether the prediction arrives early enough to support action 
+### Why I predict Year 2 continuation: Whether the prediction arrives early enough to support action 
 
 | Planning need | How the model helps |
 |---|---|
@@ -145,13 +142,13 @@ Although the case study is based on enrollment continuation, the underlying appr
 │                        RAW DATA SOURCES                                     │
 │  ┌──────────────────────┐    ┌──────────────────────────────────────────┐   │
 │  │ lifecycle_data       │    │ External indicators (StatsCan / IRCC /   │   │
-│  │                      │    │ ESDC proxies by cohort year)             │   │
+│  │                      │    │ ESDC)                                    │   │
 │  └──────────┬───────────┘    └──────────────────┬───────────────────────┘   │
 └─────────────┼───────────────────────────────────┼───────────────────────────┘
               │                                   │
               ▼                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│              SQL FEATURE ENGINEERING  (01_feature_engineering.sql)          │
+│              SQL FEATURE ENGINEERING  (feature_engineering.sql)             │
 │  • Student / program characteristics                                        │                                 
 │  • Historical trends (no leakage)                                           │
 │  • External environmental indicators                                        │
