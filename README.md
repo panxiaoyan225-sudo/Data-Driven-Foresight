@@ -65,11 +65,11 @@ Selection uses a weighted score (`selection_score`):
 - **15%** — interpretability (Logistic Regression scores highest)  
 - **15%** — operational maintainability (simplicity of deployment and monitoring)
 
-The purpose of comparing models is not to assume that the most complex model is automatically the best model. Model performance must be evaluated against the structure and purpose of the prediction problem.
+The purpose of comparing models is not to assume that the most complex model is automatically the best model. **Model performance must be evaluated against the structure and purpose of the prediction problem.**
 
 ## Temporal Validation
 
-Enrollment data is inherently temporal. I therefore use **historical forward validation** to evaluate predictive performance.
+Enrollment data is **inherently temporal**. I therefore use **historical forward validation** to evaluate predictive performance.
 
 Rather than randomly mixing observations from different periods, the validation approach respects the direction of time:
 
@@ -195,7 +195,7 @@ Although the case study is based on enrollment continuation, the underlying appr
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                    PROBABILITY SCORING                                      │
 │  Individual probabilities  →  P(continue to Year 2)  =  P_i                 │
-│  Program probabilities     →  Σ P_i  (expected continuers)                  │
+│  Program headcount         →  Σ P_i  (expected continuers)                  │
 └─────────────────────────────────┬───────────────────────────────────────────┘
                                   │
                                   ▼
