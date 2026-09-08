@@ -59,7 +59,7 @@ This rollup is exactly what the pipeline produces in files like `outputs/enrolme
 
 My pipeline combines **internal student records** with **external environmental indicators** into a single analysis-ready table. The work happens in two stages:
 
-1. **SQL feature engineering** (`01_feature_engineering.sql`) — run inside DuckDB  
+1. **SQL feature engineering** (`feature_engineering.sql`) 
 2. **Python model training** (`enrollment_prediction.py`) — encoding, scaling, and prediction
 
 ```
@@ -362,13 +362,13 @@ Once each student pathway has a probability $P_i$,I assign a **risk tier** for o
 │                        RAW DATA SOURCES                                     │
 │  ┌──────────────────────┐    ┌──────────────────────────────────────────┐   │
 │  │ lifecycle_data       │    │ External indicators (StatsCan / IRCC /   │   │
-│  │                      │    │ ESDC proxies by cohort year)             │   │
+│  │                      │    │ ESDC)                                    │   │
 │  └──────────┬───────────┘    └──────────────────┬───────────────────────┘   │
 └─────────────┼───────────────────────────────────┼───────────────────────────┘
               │                                   │
               ▼                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│              SQL FEATURE ENGINEERING  (01_feature_engineering.sql)          │
+│              SQL FEATURE ENGINEERING  (feature_engineering.sql)             │
 │  • Student / program characteristics                                        │                                 
 │  • Historical trends (no leakage)                                           │
 │  • External environmental indicators                                        │
