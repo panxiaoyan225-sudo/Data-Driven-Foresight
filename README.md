@@ -57,14 +57,6 @@ I  train four candidate models and select the best balance of accuracy, interpre
 | **XGBoost** | Gradient-boosted trees | High accuracy on structured data | More complex; needs careful monitoring |
 | **LightGBM** | Gradient-boosted trees | Fast on large datasets | Similar to XGBoost |
 
-### How the final model is chosen
-
-Selection uses a weighted score (`selection_score`):
-
-- **70%** — test-set performance (ROC-AUC, F1, recall, precision)  
-- **15%** — interpretability (Logistic Regression scores highest)  
-- **15%** — operational maintainability (simplicity of deployment and monitoring)
-
 The purpose of comparing models is not to assume that the most complex model is automatically the best model. **Model performance must be evaluated against the structure and purpose of the prediction problem.**
 
 ## Temporal Validation
