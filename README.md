@@ -44,11 +44,15 @@ I use enrollment data as a demonstration of how historical student pathways can 
 
 Think of the model as a **weather forecast for enrolment**: it does not tell us with certainty whether any one student will stay, but it gives us an estimated probability for each student — and those probabilities roll up into reliable program-level numbers.
 
+### Why driver rankings focus on flagged students
+
+A common dashboard mistake is averaging feature contributions across **all** students — including low-risk students who dilute the signal. 
+
+The critical question : **"What is driving risk among the students we need to help?"** — not **"What is average across everyone?"**
 
 ## Modeling
 
-
-I  train four candidate models and select the best balance of accuracy, interpretability, and maintainability:
+I  train 4 candidate models and select the best balance of accuracy, interpretability, and maintainability:
 
 | Model | Type | Strengths | Trade-offs |
 |---|---|---|---|
