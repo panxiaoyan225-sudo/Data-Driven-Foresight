@@ -46,7 +46,7 @@ Think of the model as a **weather forecast for enrolment**: it does not tell us 
 
 A common dashboard mistake is averaging feature contributions across **all** students — including low-risk students who dilute the signal. 
 
-The critical question : **"What is driving risk among the students we need to help?"** — not **"What is average across everyone?"**
+The critical operational question is : **"What is driving risk among the students we need to help?"** — not **"What is average across everyone?"**
 
 ## Modeling
 
