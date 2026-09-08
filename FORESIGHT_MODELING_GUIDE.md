@@ -74,9 +74,9 @@ lifecycle_data  ──►  SQL (DuckDB)  ──►  enrollment_modeling_dataset
 
 #### Internal: student lifecycle data
 
-This file contains Student / program characteristics . 
+This file contains Student / Program characteristics . 
 
-The SQL layer uses only information available at or near entry (the snapshot — the student's first recorded term on that qualification).
+The SQL layer uses only information available at or near entry.
 
 #### Historical enrolment trends (lagged, leakage-safe)
 - **Prior headcount**
@@ -84,11 +84,12 @@ The SQL layer uses only information available at or near entry (the snapshot —
 - **3-year rolling headcount** 
 - **3-year rolling Year-2 rate** 
 
-Never using the current year's outcomes to predict itself. 
+Never using the current year's outcomes to predict itself.
 
 #### External: environmental indicators
 
 WHY I included external environmental indicators?
+
  **Because enrolment and continuation do not happen in isolation from the broader environment.**
 
 Macro-level conditions that may influence enrolment patterns:
@@ -312,9 +313,13 @@ Selection uses a weighted score (`selection_score`):
 Full comparison: `outputs/model_comparison.csv`  
 Selection rationale: `outputs/final_model_selection.json`
 
-### Explaining risk drivers
+### Explaining risk drivers - Why driver rankings focus on flagged students
 
 Stakeholders rightly ask: *"Why is this student flagged?"* I answer with **feature contributions** — how each input pushed the score up or down.
+
+A common dashboard mistake is averaging feature contributions across **all** students — including low-risk students who dilute the signal. 
+
+This answers the question planners actually ask: **"What is driving risk among the students we need to help?"** — not **"What is average across everyone?"**
 
 #### Logistic Regression: coefficient weights ($\beta$)
 
@@ -352,23 +357,6 @@ Once each student pathway has a probability $P_i$,I assign a **risk tier** for o
 | **High risk** | $P_i < 0.40$ | Priority advising, retention case management |
 
 *(Thresholds are configurable by institutional policy; 0.5 is the default hard classifier in the pipeline.)*
-
-#### Why driver rankings focus on flagged students
-
-A common dashboard mistake is averaging feature contributions across **all** students — including low-risk students who dilute the signal. My recommended approach:
-
-1. Score every studemt + level of study pathway → $P_i$  
-2. Filter to **flagged at-risk students only** (Moderate + High Risk)  
-3. Average SHAP values (or absolute coefficients × standardized feature values) **within that filtered group**  
-4. Display the top drivers — e.g., "Among at-risk Economics entrants, high unemployment year and part-time load are the dominant factors"
-
-This answers the question planners actually ask: *"What is driving risk among the students we need to help?"* — not *"What is average across everyone?"*
-
-Per-student scores for the held-out test period are available in `outputs/student_predictions_test.csv`:
-
-```
-StudentID | Studylevel | cohort_year | program | y_true | y_prob | y_pred
-```
 
 ---
 
@@ -424,7 +412,7 @@ StudentID | Studylevel | cohort_year | program | y_true | y_prob | y_pred
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                    PROBABILITY SCORING                                      │
 │  Individual probabilities  →  P(continue to Year 2)  =  P_i                 │
-│  Program probabilities     →  Σ P_i  (expected continuers)                  │
+│  Program headcount         →  Σ P_i  (expected continuers)                  │
 └─────────────────────────────────┬───────────────────────────────────────────┘
                                   │
                                   ▼
