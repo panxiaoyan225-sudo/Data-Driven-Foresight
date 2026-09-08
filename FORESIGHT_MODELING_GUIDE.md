@@ -1,8 +1,6 @@
 
 #  Foresight Modeling Guide
-
  
-**Audience:** Institutional stakeholders, academic planners, and analysts  
 **Prerequisite knowledge:** Basic algebra and percentages — no prior machine learning experience required
 
 ---
@@ -65,7 +63,7 @@ My pipeline combines **internal student records** with **external environmental 
 2. **Python model training** (`enrollment_prediction.py`) — encoding, scaling, and prediction
 
 ```
-lifecycle_data  ──►  SQL (DuckDB)  ──►  enrollment_modeling_dataset
+lifecycle_data  ──►  SQL   ──►  enrollment_modeling_dataset
                                     │
                                     └──►  enrollment_prediction.py  ──►  outputs/
 ```
@@ -79,10 +77,10 @@ This file contains Student / Program characteristics .
 The SQL layer uses only information available at or near entry.
 
 #### Historical enrolment trends (lagged, leakage-safe)
-- **Prior headcount**
-- **Prior Year-2 continuation rate**
-- **3-year rolling headcount** 
-- **3-year rolling Year-2 rate** 
+- Prior headcount
+- Prior Year-2 continuation rate
+- 3-year rolling headcount
+- 3-year rolling Year-2 rate
 
 Never using the current year's outcomes to predict itself.
 
@@ -127,10 +125,6 @@ $$
 
 **Intuition:** If the average unemployment rate is 6% with little variation, a year at 9% becomes a "high" Z-score — the model learns *relative* unusualness, not raw units.
 
-Numeric features scaled in our pipeline include:
-
-Cohort/Program inforamtion, , study-duration fields, international/coop/load flags, historical trend fields, and all five external indicators.
-
 #### Step 3: One-hot encoding 
 
 Text categories cannot be fed directly into math equations. **One-hot encoding** converts each category into a set of 0/1 columns.
@@ -150,7 +144,6 @@ Text categories cannot be fed directly into math equations. **One-hot encoding**
 
 Only one faculty column is `1` for any given student; all others are `0`. This prevents the model from incorrectly treating faculty names as ordered numbers (Engineering ≠ "2 × Arts").
 
-Categorical features encoded in our pipeline include: application categories, immigration group, residency, sex, subject, program language, load, coop, program, faculty, academic unit, program code, academic load, and coop indicator.
 
 ### Columns excluded from model training
 
@@ -315,11 +308,11 @@ Selection rationale: `outputs/final_model_selection.json`
 
 ### Explaining risk drivers - Why driver rankings focus on flagged students
 
-Stakeholders rightly ask: *"Why is this student flagged?"* I answer with **feature contributions** — how each input pushed the score up or down.
-
 A common dashboard mistake is averaging feature contributions across **all** students — including low-risk students who dilute the signal. 
 
-This answers the question planners actually ask: **"What is driving risk among the students we need to help?"** — not **"What is average across everyone?"**
+The important question should be : **"What is driving risk among the students we need to help?"** — not **"What is average across everyone?"**
+
+Stakeholders rightly ask: **"Why is this student flagged?"** I answer with **feature contributions** — how each input pushed the score up or down.
 
 #### Logistic Regression: coefficient weights ($\beta$)
 
