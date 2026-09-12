@@ -13,9 +13,9 @@ Every fall, a new cohort of students begins their program. By the end of Year 1,
 
 | Planning need | How the model helps |
 |---|---|
-| **Early intervention** | Advisors can reach students *before* they disengage, while there is still time to offer support. |
+| **Early intervention** | Providing proactive support to at-risk students before they drop out. |
 | **Capacity planning** | Departments can estimate how many Year 2 seats, sections, and lab spots they will need. |
-| **Tuition & budget forecasting** | Finance teams can project revenue from continuing students rather than relying on last year's headcount. |
+| **Revenu & budget forecasting** | Finance teams can project revenue from continuing students rather than relying on last year's headcount. |
 | **Program health monitoring** | Leaders can spot whether a specific qualification pathway (e.g., a degree vs. a certificate) is retaining students at expected rates. |
 
 Think of the model as a **weather forecast for enrolment**: it does not tell us with certainty whether any one student will stay, but it gives us an estimated probability for each student — and those probabilities roll up into reliable program-level numbers.
