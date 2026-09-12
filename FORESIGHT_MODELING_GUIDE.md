@@ -70,7 +70,7 @@ lifecycle_data  ──►  SQL   ──►  enrollment_modeling_dataset
 
 ### Database sources
 
-#### Internal: student lifecycle data
+#### Internal: Trusted lifecycle data
 
 This file contains Student / Program characteristics . 
 
