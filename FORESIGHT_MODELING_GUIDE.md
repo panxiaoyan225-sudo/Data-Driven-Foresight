@@ -361,8 +361,8 @@ Once each student pathway has a probability $P_i$,I assign a **risk tier** for o
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                        RAW DATA SOURCES                                     │
 │  ┌──────────────────────┐    ┌──────────────────────────────────────────┐   │
-│  │ lifecycle_data       │    │ External indicators (StatsCan / IRCC /   │   │
-│  │                      │    │ ESDC)                                    │   │
+│  │ Trusted              │    │ External indicators                      │   │
+│  │ Lifecycle data       │    │ (StatsCan / IRCC /ESDC)                  │   │
 │  └──────────┬───────────┘    └──────────────────┬───────────────────────┘   │
 └─────────────┼───────────────────────────────────┼───────────────────────────┘
               │                                   │
