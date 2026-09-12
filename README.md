@@ -141,8 +141,8 @@ Although the case study is based on enrollment continuation, the underlying appr
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                        RAW DATA SOURCES                                     │
 │  ┌──────────────────────┐    ┌──────────────────────────────────────────┐   │
-│  │ lifecycle_data       │    │ External indicators (StatsCan / IRCC /   │   │
-│  │                      │    │ ESDC)                                    │   │
+│  │ Trusted              │    │ External indicators                      │   │
+│  │ Lifecycle data       │    │ (StatsCan / IRCC /ESDC)                  │   │
 │  └──────────┬───────────┘    └──────────────────┬───────────────────────┘   │
 └─────────────┼───────────────────────────────────┼───────────────────────────┘
               │                                   │
