@@ -426,8 +426,8 @@ Once each student pathway has a probability $P_i$,I assign a **risk tier** for o
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │         EXECUTIVE DASHBOARD & INTERVENTIONS                                 │
-│  • Program demand forecasts                                                 │
-│  • At-risk student lists for advising outreach                              │
+│  • Demand forecasts                                                         │
+│  • Driving risk among at-risk student for advising outreach                 │
 │  • Top risk drivers for policy conversations                                │
 │  • Walk-forward stability charts for model governance                       │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -453,9 +453,6 @@ Once each student pathway has a probability $P_i$,I assign a **risk tier** for o
 
 | Term | Definition |
 |---|---|
-| **Student ID** | Unique student identifier in the institutional system |
-| **Study Level** | Qualification pathway code (degree, certificate, etc.) |
-| **COHORTE** | The entry-term snapshot row in lifecycle data |
 | **Walk-forward validation** | Train on the past, test on the next future period, repeat |
 | **ROC-AUC** | Ranking quality score from 0.5 (random) to 1.0 (perfect) |
 | **Data leakage** | Using future information to predict the past |
