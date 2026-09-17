@@ -206,8 +206,8 @@ Although the case study is based on enrollment continuation, the underlying appr
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │         EXECUTIVE DASHBOARD & INTERVENTIONS                                 │
-│  • Program demand forecasts                                                 │
-│  • At-risk student lists for advising outreach                              │
+│  • Demand forecasts                                                         │
+│  • Driving risk among at-risk student for advising outreach                 │
 │  • Top risk drivers for policy conversations                                │
 │  • Walk-forward stability charts for model governance                       │
 └─────────────────────────────────────────────────────────────────────────────┘
