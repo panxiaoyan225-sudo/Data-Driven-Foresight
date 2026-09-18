@@ -39,9 +39,9 @@ I use enrollment data as a demonstration of how historical student pathways can 
 
 Think of the model as a **weather forecast for enrolment**: it does not tell us with certainty whether any one student will stay, but it gives us an estimated probability for each student — and those probabilities roll up into reliable program-level numbers.
 
-### Why driver rankings focus on flagged students
+### Why driver rankings focus on flagged at-risk students
 
-A common dashboard mistake is averaging feature contributions across **all** students — including low-risk students who dilute the signal. 
+A common dashboard mistake is averaging feature contributions across **all students**  — including low-risk students who dilute the signal. 
 
 The critical operational question is : **"What is driving risk among the students we need to help?"** — not **"What is average across everyone?"**
 
@@ -72,7 +72,6 @@ This provides a more realistic assessment of how a predictive model may perform 
 
 The repository includes visual evidence of model evaluation, including confusion matrices and forecast outputs.
 
-These results are provided without exposing underlying student-level data.
 
 ### Included evidence
 
@@ -86,7 +85,14 @@ Additional figures may be added as the analysis develops.
 
 ### Presentation
 
-A selected presentation illustrating the institutional intelligence architecture, lifecycle data foundation, predictive foresight, and operational decision integration. Full presentation available upon request.
+A selected presentation illustrating: 
+
+- institutional intelligence architecture
+- lifecycle data foundation
+- predictive foresight
+- operational decision integration
+
+Full presentation available upon request.
 
 ## Methodology Guide
 
