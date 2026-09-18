@@ -41,7 +41,7 @@ Think of the model as a **weather forecast for enrolment**: it does not tell us 
 
 ### Why driver rankings focus on flagged at-risk students
 
-A common dashboard mistake is averaging feature contributions across **all students**  — including low-risk students who dilute the signal. 
+A common dashboard mistake is averaging feature contributions across all students — including low-risk students who dilute the signal. 
 
 The critical operational question is : **"What is driving risk among the students we need to help?"** — not **"What is average across everyone?"**
 
