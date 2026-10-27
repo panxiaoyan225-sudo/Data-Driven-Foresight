@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Institutional Lifecycle Intelligence — Xiaoyan Pan</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400&display=swap');
+
+:root {
+  --ink: #0a0f1a;
+  --paper: #fbfcff;
+  --steel: #6b7482;
+  --muted: #8890a3;
+  --line: #dde2ec;
+  --card-bg: rgba(255,255,255,0.92);
+  --card-border: rgba(13,33,72,0.08);
+  --accent: #2a4a7f;
+  --accent-soft: #eaf1fa;
+  --accent-deep: #163b6b;
+  --rose: #b23a2e;
+  --amber: #c28811;
+  --emerald: #2d7a6a;
+  --violet: #5b4fa3;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-heading: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0; padding: 56px 4vw;
+  background: linear-gradient(180deg, #f4f6fb 0%, #e8ecf4 100%);
+  color: var(--ink); font-family: var(--font-body);
+  line-height: 1.55; -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 1100px; margin: 0 auto; }
+
+header { margin-bottom: 48px; }
+
+overline {
+  display: inline-block; font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent); background: var(--accent-soft); padding: 5px 10px;
+  border-radius: 4px; margin-bottom: 18px; border: 1px solid rgba(42,74,127,0.10);
+}
+
+h1 {
+  font-family: var(--font-heading); font-weight: 400;
+  font-size: clamp(32px, 5vw, 56px); line-height: 1.08;
+  letter-spacing: -0.02em; color: var(--ink); margin: 0 0 10px;
+}
+
+.subtitle {
+  font-family: var(--font-heading); font-style: italic; font-weight: 400;
+  font-size: 22px; color: var(--steel); margin-bottom: 14px; line-height: 1.3;
+}
+
+.hero-bar {
+  display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+  margin-top: 18px;
+}
+
+.hero-bar span {
+  font-family: var(--font-mono); font-size: 11px; padding: 6px 10px;
+  border-radius: 6px; border: 1px solid var(--line); background: rgba(255,255,255,0.7);
+  color: var(--steel);
+}
+
+.hero-bar .tag { border-left: 3px solid var(--accent); color: var(--accent-deep); font-weight: 600; }
+
+/* Core message band */
+.message-strip {
+  background: linear-gradient(100deg, #163b6b 0%, #2a4a7f 60%, #3b5fa3 100%);
+  color: #fff; padding: 36px 32px; border-radius: 14px;
+  margin: 44px 0 48px; position: relative; overflow: hidden;
+  box-shadow: 0 20px 50px rgba(22,59,107,0.22);
+}
+
+.message-strip::before {
+  content: ""; position: absolute; top: -40%; right: -10%; width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%); border-radius: 50%;
+}
+
+.message-strip h2 {
+  font-family: var(--font-heading); font-weight: 400; font-size: 26px; margin: 0 0 10px; line-height: 1.2; position: relative; z-index: 1;
+}
+
+.message-strip p { font-size: 15px; opacity: 0.92; margin: 0 0 8px; max-width: 720px; position: relative; z-index: 1; }
+
+.message-strip .quote-line { font-style: italic; font-family: var(--font-heading); font-size: 20px; opacity: 0.85; border-left: 3px solid rgba(255,255,255,0.35); padding-left: 14px; margin-top: 14px; position: relative; z-index: 1; }
+
+/* Framework layers */
+.layers { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 48px; }
+
+.card {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: 14px; padding: 22px 24px;
+  box-shadow: 0 1px 3px rgba(10,15,26,0.06), 0 4px 14px rgba(10,15,26,0.04);
+  transition: transform .08s ease, box-shadow .08s ease;
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(10,15,26,0.08); }
+
+.card h3 {
+  font-family: var(--font-heading); font-weight: 400; font-size: 20px;
+  margin: 0 0 10px; letter-spacing: -0.01em; color: var(--ink);
+}
+.card h3 .badge { font-family: var(--font-mono); font-size: 10px; vertical-align: middle; margin-left: 8px; letter-spacing: 0; padding: 2px 6px; border-radius: 4px; background: var(--accent-soft); color: var(--accent-deep); font-weight: 500; }
+
+.card .sub { font-size: 13px; color: var(--steel); margin-bottom: 12px; }
+
+.card ul { margin: 0; padding-left: 18px; font-size: 13px; color: #334; }
+.card li { margin-bottom: 5px; }
+
+/* Pipeline visual */
+.pipeline-visual {
+  background: linear-gradient(180deg, #f8fafc 0%, #edf2f7 100%); border: 1px solid var(--line);
+  border-radius: 16px; padding: 28px 24px; margin-bottom: 48px; position: relative;
+}
+.pipeline-visual h2 { font-family: var(--font-heading); font-weight: 400; font-size: 22px; margin: 0 0 6px; }
+.pipeline-visual .pipeline-sub { color: var(--steel); font-size: 13px; margin-bottom: 22px; }
+
+.flow-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: flex-start; }
+.flow-row .step {
+  background: #fff; border: 1.5px solid var(--line); border-radius: 10px;
+  padding: 14px 16px; min-width: 140px; box-shadow: 0 1px 2px rgba(10,15,26,0.05);
+}
+.flow-row .step .step-label { font-family: var(--font-heading); font-size: 15px; color: var(--ink); }
+.flow-row .step .step-desc { font-size: 11px; color: var(--steel); margin-top: 2px; }
+.flow-row .arrow { font-size: 20px; color: var(--accent); font-weight: 700; }
+
+/* Two-column insight */
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-bottom: 48px; }
+@media (max-width: 860px) { .columns { grid-template-columns: 1fr; } }
+
+.insight-block { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 24px; }
+.insight-block h3 { font-family: var(--font-heading); font-size: 18px; margin: 0 0 12px; }
+.insight-block p { font-size: 14px; color: #334; margin: 0 0 8px; }
+
+/* Footer */
+footer { border-top: 1px solid var(--line); padding-top: 22px; color: var(--steel); font-size: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.footer-left { font-family: var(--font-mono); }
+.footer-right { color: var(--muted); font-family: var(--font-heading); font-style: italic; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div class="overline">Architecture / Institutional Intelligence</div>
+  <h1>Institutional Lifecycle Intelligence</h1>
+  <div class="subtitle">From fragmentation to visibility, foresight, and decision</div>
+  <div class="hero-bar">
+    <span class="tag">Xiaoyan Pan</span>
+    <span>Institutional Lifecycle Intelligence</span>
+    <span>Data Engineering → Predictive Intelligence → Decision Intelligence</span>
+  </div>
+</header>
+
+<div class="message-strip">
+  <h2>Can an institution understand its future before the numbers decline?</h2>
+  <p>Decisions require more than reports. They require seeing the whole system. Value comes from connection. Consequences travel slowly. They always arrive.</p>
+  <div class="quote-line">“From fragmentation to visibility, foresight, and decision.”</div>
+</div>
+
+<!-- Framework layers -->
+<section aria-label="Framework layers">
+  <h2 style="font-family:var(--font-heading);font-weight:400;font-size:22px;margin:0 0 18px;letter-spacing:-0.01em;">The Four Pillars</h2>
+  <div class="layers">
+    <article class="card">
+      <h3>Trusted Architecture <span class="badge">Foundation</span></h3>
+      <div class="sub">Governance framework that connects sources into a coherent lifecycle view.</div>
+      <ul><li>Data governance rules</li><li>Standardized schemas</li><li>Trusted lifecycle dataset</li></ul>
+    </article>
+
+    <article class="card">
+      <h3>Data Sources <span class="badge">Input</span></h3>
+      <div class="sub">Registration · Graduation · Academic Records · Tuition · Scholarships.</div>
+      <ul><li>Student master records</li><li>Enrollment history</li><li>Graduation tracking</li><li>Financial & scholarship data</li></ul>
+    </article>
+
+    <article class="card">
+      <h3>Data Quality & Validation <span class="badge">Trust</span></h3>
+      <div class="sub">Student ID validation · Academic year consistency · Graduation matching · Business rules.</div>
+      <ul><li>Identity validation</li><li>Year consistency checks</li><li>Graduation matching</li><li>Business-rule enforcement</li></ul>
+    </article>
+
+    <article class="card">
+      <h3>Data Pipeline <span class="badge">Process</span></h3>
+      <div class="sub">Extract → Transform → Standardize → Integrate → Dataset.</div>
+      <ul><li>Extract from source systems</li><li>Transform and clean</li><li>Standardize formats</li><li>Integrate into lifecycle dataset</li></ul>
+    </article>
+
+    <article class="card">
+      <h3>Predictive Intelligence <span class="badge">Insight</span></h3>
+      <div class="sub">Feature Engineering · Model Training · Validation · Prediction.</div>
+      <ul><li>Feature engineering from dataset</li><li>Model training & validation</li><li>Enrolment forecasting</li><li>Risk detection patterns</li></ul>
+    </article>
+
+    <article class="card">
+      <h3>Decision Intelligence <span class="badge">Output</span></h3>
+      <div class="sub">Lifecycle Dashboard · Risk Detection · Forecast · Executive Decision Support.</div>
+      <ul><li>Lifecycle dashboard visualization</li><li>Risk detection alerts</li><li>Enrolment forecasts</li><li>Executive decision support</li></ul>
+    </article>
+  </div>
+</section>
+
+<!-- Pipeline visual -->
+<section aria-label="Data pipeline flow" class="pipeline-visual">
+  <h2>Data Pipeline — From Fragmentation to Visibility</h2>
+  <div class="pipeline-sub">Registration, Graduation, Academic Records, Tuition, Scholarships → Trusted Lifecycle Dataset → Predictive Intelligence → Decision Intelligence</div>
+  <div class="flow-row">
+    <div class="step"><div class="step-label">Data Sources</div><div class="step-desc">Registration · Graduation · Academics · Tuition · Scholarships</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="step-label">Data Engineering</div><div class="step-desc">Extract · Transform · Standardize · Integrate</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="step-label">Data Quality</div><div class="step-desc">ID Validation · Year Consistency · Graduation Match · Rules</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="step-label">Trusted Dataset</div><div class="step-desc">Student · Program · Registration History · Graduation · Tuition</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="step-label">Predictive Intelligence</div><div class="step-desc">Feature Engineering · Training · Validation · Prediction</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="step-label">Decision Intelligence</div><div class="step-desc">Dashboard · Risk Detection · Forecast · Executive Support</div></div>
+  </div>
+</section>
+
+<!-- Insight columns -->
+<section aria-label="Key takeaways" class="columns">
+  <article class="insight-block">
+    <h3>Why Fragmentation Invisible?</h3>
+    <p>When student data lives in separate systems — registration, graduation, tuition, scholarships — the institution sees pieces, not patterns.</p>
+    <p>The framework connects them through a <strong>trusted architecture</strong> with validated quality gates, producing a single lifecycle dataset.</p>
+  </article>
+
+  <article class="insight-block">
+    <h3>From Visibility to Foresight</h3>
+    <p>Once integrated, predictive intelligence (feature engineering → model training → validation → prediction) transforms historical records into forward signals: enrolment forecasts, risk detection, and early warning indicators.</p>
+    <p>Value comes from connection — not from isolated reports.</p>
+  </article>
+</section>
+
+<!-- Closing -->
+<div style="text-align:center;padding:28px 0 8px; font-family:var(--font-heading);font-style:italic;font-size:18px;color:var(--steel);">
+  “Consequences travel slowly. They always arrive.”
+</div>
+
+<footer>
+  <div class="footer-left">Xiaoyan Pan · Institutional Lifecycle Intelligence</div>
+  <div class="footer-right">Diagram saved to reports folder · Generated 2026-10-27</div>
+</footer>
+
+</div>
+</body>
+</html>
