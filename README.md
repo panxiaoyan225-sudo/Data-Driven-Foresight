@@ -1,6 +1,6 @@
 # Data-Driven Foresight 
 ## Once trusted data has been established, prediction becomes the next layer of intelligence.
-[🚀 Explore the system architecture](https://panxiaoyan225-sudo.github.io/Data-Driven-Foresight/Institutional_Lifecycle_Intelligence_Arch.html)
+[🚀 Explore the system architecture](https://panxiaoyan225-sudo.github.io/Data-Driven-Foresight/institutional-lifecycle-architecture.html)
 
 
 This repository presents data-driven foresight: using longitudinal data, statistical modeling, validation, and predictive analysis to move **from historical evidence toward forward-looking intelligence**.
