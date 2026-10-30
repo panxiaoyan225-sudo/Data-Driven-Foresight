@@ -261,42 +261,183 @@ h1 {
 }
 
 .cycle-diagram {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 12px;
-  margin: 28px 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 28px 0 0;
   position: relative;
-}
-
-@media (max-width: 900px) {
-  .cycle-diagram {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-  }
-}
-
-@media (max-width: 600px) {
-  .cycle-diagram {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
 }
 
 .cycle-node {
+  flex: 1 1 0;
+  min-width: 0;
   background: #f8fafc;
   border: 1.5px solid var(--line);
   border-radius: 12px;
-  padding: 18px 14px;
+  padding: 16px 10px;
   text-align: center;
   position: relative;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .cycle-node:hover {
   background: #ffffff;
-  border-color: var(--cyan);
+  border-color: #38bdf8;
   transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(2, 132, 199, 0.08);
+  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.12);
+}
+
+/* Elegant Arrows between cards */
+.cycle-arrow {
+  flex: 0 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0ea5e9;
+  filter: drop-shadow(0 0 4px rgba(14, 165, 233, 0.4));
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.cycle-arrow:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 8px rgba(14, 165, 233, 0.7));
+}
+
+.cycle-arrow svg {
+  display: block;
+}
+
+/* Return Loop Track: Outcomes -> Reputation */
+.cycle-loop-track {
+  position: relative;
+  height: 38px;
+  margin-top: 4px;
+  margin-bottom: 22px;
+}
+
+.cycle-loop-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc((100% - 170px) / 12);
+  right: calc((100% - 170px) / 12);
+  border-left: 2px solid #0ea5e9;
+  border-right: 2px solid #0ea5e9;
+  border-bottom: 2px solid #0ea5e9;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+  box-shadow: 0 3px 10px rgba(14, 165, 233, 0.16);
+  pointer-events: none;
+}
+
+.cycle-loop-arrow-up {
+  position: absolute;
+  top: -8px;
+  left: -7px;
+  width: 14px;
+  height: 12px;
+  color: #0ea5e9;
+  filter: drop-shadow(0 -1px 4px rgba(14, 165, 233, 0.5));
+}
+
+.cycle-loop-start-dot {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #0ea5e9;
+  box-shadow: 0 0 6px rgba(14, 165, 233, 0.65);
+}
+
+.cycle-loop-badge {
+  position: absolute;
+  left: 50%;
+  bottom: -13px;
+  transform: translateX(-50%);
+  background: #ffffff;
+  border: 1px solid rgba(14, 165, 233, 0.38);
+  color: #0369a1;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 3px 14px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  box-shadow: 0 2px 10px rgba(14, 165, 233, 0.14);
+  white-space: nowrap;
+  pointer-events: auto;
+  transition: all 0.2s ease;
+}
+
+.cycle-loop-badge:hover {
+  border-color: #0ea5e9;
+  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.25);
+  color: #0284c7;
+}
+
+.cycle-loop-badge svg {
+  color: #0ea5e9;
+}
+
+@media (max-width: 860px) {
+  .cycle-diagram {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .cycle-node {
+    width: 100%;
+    padding: 16px 14px;
+  }
+
+  .cycle-arrow {
+    width: 100%;
+    height: 28px;
+    transform: rotate(90deg);
+  }
+
+  .cycle-arrow:hover {
+    transform: rotate(90deg) scale(1.15);
+  }
+  
+  .cycle-loop-track {
+    display: none;
+  }
+  
+  .cycle-loop-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+    margin-bottom: 20px;
+    padding: 10px 16px;
+    background: #f0f9ff;
+    border: 1.5px dashed #0ea5e9;
+    border-radius: 12px;
+    color: #0369a1;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(14, 165, 233, 0.08);
+  }
+}
+
+@media (min-width: 861px) {
+  .cycle-loop-mobile {
+    display: none;
+  }
 }
 
 .cycle-step-num {
@@ -601,7 +742,7 @@ footer {
 
   <!-- Top Navigation Bar -->
   <div class="top-bar">
-    <a href="/#lifecycle-intelligence" class="back-link">
+    <a href="/" class="back-link">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <path d="m15 18-6-6 6-6"/>
       </svg>
@@ -663,31 +804,90 @@ footer {
         <div class="cycle-node-title">Reputation</div>
         <div class="cycle-node-desc">Academic excellence & credential standing in the sector</div>
       </div>
+
+      <div class="cycle-arrow" aria-hidden="true" title="Reputation drives Demand">
+        <svg width="20" height="16" viewBox="0 0 20 16" fill="none">
+          <path d="M2 8H16.5M16.5 8L11 2.5M16.5 8L11 13.5" stroke="#0ea5e9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
       <div class="cycle-node">
         <div class="cycle-step-num">Step 02</div>
         <div class="cycle-node-title">Demand</div>
         <div class="cycle-node-desc">Applicant volume, demographic pool & program attraction</div>
       </div>
+
+      <div class="cycle-arrow" aria-hidden="true" title="Demand feeds Enrolment">
+        <svg width="20" height="16" viewBox="0 0 20 16" fill="none">
+          <path d="M2 8H16.5M16.5 8L11 2.5M16.5 8L11 13.5" stroke="#0ea5e9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
       <div class="cycle-node">
         <div class="cycle-step-num">Step 03</div>
         <div class="cycle-node-title">Enrolment</div>
         <div class="cycle-node-desc">Registration conversion, cohort intake & composition</div>
       </div>
+
+      <div class="cycle-arrow" aria-hidden="true" title="Enrolment generates Revenue">
+        <svg width="20" height="16" viewBox="0 0 20 16" fill="none">
+          <path d="M2 8H16.5M16.5 8L11 2.5M16.5 8L11 13.5" stroke="#0ea5e9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
       <div class="cycle-node">
         <div class="cycle-step-num">Step 04</div>
         <div class="cycle-node-title">Revenue</div>
         <div class="cycle-node-desc">Tuition stability, grant funding & fiscal sustainability</div>
       </div>
+
+      <div class="cycle-arrow" aria-hidden="true" title="Revenue funds Capacity">
+        <svg width="20" height="16" viewBox="0 0 20 16" fill="none">
+          <path d="M2 8H16.5M16.5 8L11 2.5M16.5 8L11 13.5" stroke="#0ea5e9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
       <div class="cycle-node">
         <div class="cycle-step-num">Step 05</div>
         <div class="cycle-node-title">Capacity</div>
         <div class="cycle-node-desc">Faculty, advising bandwidth, labs & student services</div>
       </div>
+
+      <div class="cycle-arrow" aria-hidden="true" title="Capacity drives Outcomes">
+        <svg width="20" height="16" viewBox="0 0 20 16" fill="none">
+          <path d="M2 8H16.5M16.5 8L11 2.5M16.5 8L11 13.5" stroke="#0ea5e9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
       <div class="cycle-node">
         <div class="cycle-step-num">Step 06</div>
         <div class="cycle-node-title">Outcomes</div>
         <div class="cycle-node-desc">Retention, progression speed, graduation & career success</div>
       </div>
+    </div>
+
+    <!-- Return Loop: OUTCOMES -> REPUTATION -->
+    <div class="cycle-loop-track" aria-hidden="true">
+      <div class="cycle-loop-line">
+        <div class="cycle-loop-arrow-up">
+          <svg width="14" height="12" viewBox="0 0 14 12" fill="none">
+            <path d="M7 1L1 11H13L7 1Z" fill="#0ea5e9"/>
+          </svg>
+        </div>
+        <div class="cycle-loop-start-dot"></div>
+      </div>
+      <div class="cycle-loop-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M11 18l-6-6 6-6"/>
+        </svg>
+        <span>Outcomes feed Reputation · Cycle continues</span>
+      </div>
+    </div>
+    <div class="cycle-loop-mobile" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+      <span>Cycle continues — Outcomes loop back into Step 01: Reputation</span>
     </div>
 
     <div class="cycle-takeaway">
@@ -934,7 +1134,7 @@ footer {
   <!-- Bottom Synthesis -->
   <div class="synthesis-card">
     <div class="synthesis-quote">
-      Lifecycle Intelligence is not an isolated model. It is a complete chain: trusted data, governed features, predictive modelling, validation, decision support, and operational maintenance. A model only creates value when translated into an earlier, better decision.
+      Lifecycle Intelligence is not an isolated model. It is a complete chain: trusted data, governed features, predictive modelling, validation, decision support, and operational maintenance. A model only creates value when translated into an earlier, better decision
     </div>
     <div class="synthesis-author">
       Xiaoyan Pan · Institutional Lifecycle Intelligence Framework
