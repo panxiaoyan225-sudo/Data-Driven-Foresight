@@ -3,7 +3,7 @@
 
 **The Complete Chain of Lifecycle Intelligence**: 
 data, governed features, predictive modelling, validation, decision support, and operational maintenance.
-[🚀 Explore the system architecture](https://panxiaoyan225-sudo.github.io/Data-Driven-Foresight/institutional-lifecycle-architecture.html)
+[🚀 Explore the system architecture](https://xiaoyanpan.com/institutional-lifecycle-architecture.html)
 
 
 This repository presents data-driven foresight: using longitudinal data, statistical modeling, validation, and predictive analysis to move **from historical evidence toward forward-looking intelligence**.
