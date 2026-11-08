@@ -1,9 +1,9 @@
 # Data-Driven Foresight 
-## Once trusted data has been established, prediction becomes the next layer of intelligence.
+## Can an institution understand its future before the numbers decline?
 
 **The Complete Chain of Lifecycle Intelligence**: 
-data, governed features, predictive modelling, validation, decision support, and operational maintenance.
-[🚀 Explore the system architecture](https://xiaoyanpan.com/institutional-lifecycle-architecture.html)
+data, features, validation, decision, upkeep.
+[Institutional Architecture · Decision Intelligence -> ](https://xiaoyanpan.com/institutional-lifecycle-architecture.html)
 
 
 This repository presents data-driven foresight: using longitudinal data, statistical modeling, validation, and predictive analysis to move **from historical evidence toward forward-looking intelligence**.
