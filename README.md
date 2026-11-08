@@ -1,8 +1,7 @@
-# Data-Driven Foresight 
 ## Can an institution understand its future before the numbers decline?
 
 **The Complete Chain of Lifecycle Intelligence**: 
-data, features, validation, decision, upkeep.
+data, features, validation, decision, upkeep.  
 [Institutional Architecture · Decision Intelligence -> ](https://xiaoyanpan.com/institutional-lifecycle-architecture.html)
 
 
